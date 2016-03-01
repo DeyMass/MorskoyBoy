@@ -205,7 +205,7 @@ while (1){
 }
              }         
              if (dir==1){
-        if (p1[(int)(((float)mousex()-40)/40)+1][(int)(((float)mousey()-40)/40)]==1||p1[(int)(((float)mousex()-40)/40)-1][(int)(((float)mousey()-40)/40)]==1){
+        if (p1[(int)(((float)mousex()-40)/40)+1][(int)(((float)mousey()-40)/40)]>1||p1[(int)(((float)mousex()-40)/40)-1][(int)(((float)mousey()-40)/40)]>1){
                             third--;
   floodfill(mousex(),mousey(),COLOR(255,255,255));
   p1[(int)(((float)mousex()-40)/40)][(int)(((float)mousey()-40)/40)]=4;
