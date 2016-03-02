@@ -374,11 +374,16 @@ int nachalox,nachaloy;
 //dir=1 - gorizontal; dir=2 - vertikal
 nachalox=rand()%10;
 nachaloy=rand()%10;
-p[nachalox][nachaloy]=41;
+p2[nachalox][nachaloy]=41;
 dir=rand()%2+1;
-
-if(dir==1) if(rand()%2) p[nachalox+1][nachaloy]
-
+int temp;
+if(dir==1){ 
+    if(temp=rand()%2) p2[nachalox+1][nachaloy]=41;
+    else p2[nachalox-1][nachaloy]=41;
+    if(temp) if(rand()%2) p2[nachalox+2][nachaloy]=41;
+            else p2[nachalox-2][nachaloy]=41;
+    
+}
 
 
 
