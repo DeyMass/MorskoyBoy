@@ -359,16 +359,25 @@ while (n>0){
     }
     clearmouseclick(WM_LBUTTONDOWN);
     delay(5);
-    
 }
 
+//*******************************************¡Œ“ –¿——“¿¬Àﬂ≈“ —¬Œ»  Œ–¿¡À»: ********************************************************
 
+for (i=0;i<12;i++){
+        p2[0][i]=-1;
+        p2[i][0]=-1;
+        p2[11][i]=-1;
+        p2[i][11]=-1;
+    }
 
+int nachalox,nachaloy;
+//dir=1 - gorizontal; dir=2 - vertikal
+nachalox=rand()%10;
+nachaloy=rand()%10;
+p[nachalox][nachaloy]=41;
+dir=rand()%2+1;
 
-
-
-
-
+if(dir==1) if(rand()%2) p[nachalox+1][nachaloy]
 
 
 
