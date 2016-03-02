@@ -155,7 +155,6 @@ int main(){
 p1[i][j]=0;
 p2[i][j]=0;
 }
-int krayx,krayy;
   initwindow(440,800,"Place your boats, player 1");
   pprint();
   settextstyle(8,0,4);
@@ -163,14 +162,16 @@ int krayx,krayy;
   bgiout<<"Ïîñòàâü 4-õ ïàëóáíèê";
   outstreamxy(0,700);
   
-  int first=1,second=0,third=-100,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
+  int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
   setfillstyle(1,COLOR(0,255,0));
   //*********************************************************×ÅÒÛÐ¨ÕÏÀËÓÁÍÈÊ*************************************************************
 while (1){
+    tempx=(int)((float)mousex()/40);
+    tempy=(int)((float)mousey()/40);
          if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
        if (first){
-            if (p1[(int)(((float)mousex())/40)][(int)(((float)mousey())/40)]<1&&mousex()%40!=0&&mousey()%40!=0){
-            p1[(int)(((float)mousex())/40)][(int)(((float)mousey())/40)]=41;
+            if (p1[tempx][tempy]<1&&mousex()%40!=0&&mousey()%40!=0){
+            p1[tempx][tempy]=41;
           floodfill(mousex(),mousey(),COLOR(255,255,255));    
           second=1;
           first=0;    
@@ -178,40 +179,36 @@ while (1){
           ey=(int)((float)mousey()/40);
             }
          }
-      
-      
+    
       if (first==0)
-         if (second){
- if ((p1[(int)((float)mousex()/40)+1][(int)((float)mousey()/40)]==41||p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)+1]==41
- ||p1[(int)((float)mousex()/40)-1][(int)((float)mousey()/40)]==41
- ||p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)-1]==41)&&p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)]<1){
+         if (second==1&&p1[tempx][tempy]<1){
+ if ((p1[tempx+1][tempy]==41||p1[tempx][tempy+1]==41||p1[tempx-1][tempy]==41||p1[tempx][tempy-1]==41)&&p1[tempx][tempy]!=41){
   floodfill(mousex(),mousey(),COLOR(255,255,255));
-  p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)]=41;
+  p1[tempx][tempy]=41;
   second=0;
   third=2;  
 
   if (ex-((int)((float)mousex()/40))==0) dir=2;
   else dir=1;
-  printf("dir=%i",dir);
- }}
+ }
+ }
             if (third>=0){
-             if(dir==2){
-              if ((p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)+1]==41||p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)-1]==41)&&p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)]<1){
+              if (dir==2&&(p1[tempx][tempy+1]==41||p1[tempx][tempy-1]==41)&&p1[tempx][tempy]!=41){
                     third--;
   floodfill(mousex(),mousey(),COLOR(255,255,255));
-  p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)]=41;
+  p1[tempx][tempy]=41;
      if (third==0) break;
 }
-             }         
+                      
              if (dir==1){
-        if (p1[(int)((float)mousex()/40)+1][(int)((float)mousey()/40)]>1||p1[(int)((float)mousex()/40)-1][(int)((float)mousey()/40)]>1){
-                            third--;
+        if (p1[tempx][tempy]!=41&&(p1[tempx+1][tempy]>1||p1[tempx-1][tempy]>1)){
+    third--;
   floodfill(mousex(),mousey(),COLOR(255,255,255));
   p1[(int)((float)mousex()/40)][(int)((float)mousey()/40)]=41;
+        if (third==0) break;     
                     }    
-                }         
+                }     
             }
-        if (third==0) break;
 }//*******************************************
       clearmouseclick(WM_LBUTTONDOWN);
       delay(10);
@@ -219,7 +216,7 @@ while (1){
 bgiout<<"Ïîñòàâüòå äâà 3-õ ïàëóáíèêà";
 outstreamxy(0,700);
 
-int n=1,tempx,tempy;
+int n=1;
 first=1;
 setfillstyle(1,COLOR(0,255,0));
 dir=0;
@@ -235,7 +232,7 @@ while (1){
             second=1;
             clearmouseclick(WM_LBUTTONDOWN);
             }
-        if (second==1&&(p1[tempx-1][tempy]==31||p1[tempx+1][tempy]==31||p1[tempx][tempy+1]==31||p1[tempx][tempy-1]==32)&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
+        if (second==1&&((p1[tempx-1][tempy]==31&&p1[tempx+1][tempy]<1)||(p1[tempx+1][tempy]==31&&p1[tempx-1][tempy]<1)||(p1[tempx][tempy+1]==31&&p1[tempx][tempy-1]<1)||(p1[tempx][tempy-1]==31&&p1[tempx][tempy+1]<1))&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
             if (p1[tempx][tempy+1]==31||p1[tempx][tempy-1]==31) dir=2;
             else dir=1;
             p1[tempx][tempy]=31;
@@ -282,7 +279,7 @@ while (1){
             second=1;
             clearmouseclick(WM_LBUTTONDOWN);    
             }
-        if (second==1&&(p1[tempx-1][tempy]==32||p1[tempx+1][tempy]==32||p1[tempx][tempy+1]==32||p1[tempx][tempy-1]==32)&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
+        if (second==1&&((p1[tempx-1][tempy]==32&&p1[tempx+1][tempy]<1)||(p1[tempx+1][tempy]==32&&p1[tempx-1][tempy]<1)||(p1[tempx][tempy+1]==32&&p1[tempx][tempy-1]<1)||(p1[tempx][tempy-1]==32&&p1[tempx][tempy+1]<1))&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
             if (p1[tempx][tempy+1]==32||p1[tempx][tempy-1]==32) dir=2;
             else dir=1;
             p1[tempx][tempy]=32;
