@@ -1,5 +1,6 @@
 #include <graphics.h>
 #include <iostream.h>
+#include <ctime>
 #include <stdlib.h>
 
 //Морской бой!
@@ -157,13 +158,14 @@ p2[i][j]=0;
 }
   initwindow(440,800,"Place your boats, player 1");
   pprint();
+
   settextstyle(8,0,4);
   setcolor(COLOR(0,255,0));
   bgiout<<"Поставь 4-х палубник";
   outstreamxy(0,700);
-  
   int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
   setfillstyle(1,COLOR(0,255,0));
+closegraph();  /*
   //*********************************************************ЧЕТЫРЁХПАЛУБНИК*************************************************************
 while (1){
     tempx=(int)((float)mousex()/40);
@@ -240,7 +242,7 @@ while (1){
             second=0;
             third=1;
             }
-        if (third==1&&dir==2&&p1[tempx][tempy]<1&&((p1[tempx][tempy-1]==31&&p1[tempx][tempy+1]==0)||(p1[tempx][tempy-1]==0&&p1[tempx][tempy+1]==31))){
+        if (third==1&&dir==2&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx+1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&((p1[tempx][tempy-1]==31&&p1[tempx][tempy+1]==0)||(p1[tempx][tempy-1]==0&&p1[tempx][tempy+1]==31))){
             p1[tempx][tempy]=31;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
             n--;
@@ -248,7 +250,7 @@ while (1){
             third=0;
             dir=0;
             }
-        if (third==1&&dir==1&&p1[tempx][tempy]<1&&((p1[tempx-1][tempy]==0&&p1[tempx+1][tempy]==31)||(p1[tempx-1][tempy]==31&&p1[tempx+1][tempy]==0))){
+        if (third==1&&dir==1&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx+1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&((p1[tempx-1][tempy]==0&&p1[tempx+1][tempy]==31)||(p1[tempx-1][tempy]==31&&p1[tempx+1][tempy]==0))){
             p1[tempx][tempy]=31;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
             n--;
@@ -328,7 +330,7 @@ while(n>0){
             first=0;
             second=1;
             }
-        if (second==1&&p1[tempx][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx+1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&(p1[tempx-1][tempy]==20+n||p1[tempx+1][tempy]==20+n||p1[tempx][tempy+1]==20+n||p1[tempx][tempy-1]==20+n)){
+        if (second==1&&p1[tempx][tempy]<1&&p1[tempx][tempy+1]<20+n+1&&p1[tempx][tempy-1]<20+n+1&&p1[tempx+1][tempy]<20+n+1&&p1[tempx-1][tempy]<20+n+1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx+1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&(p1[tempx-1][tempy]==20+n||p1[tempx+1][tempy]==20+n||p1[tempx][tempy+1]==20+n||p1[tempx][tempy-1]==20+n)){
             p1[tempx][tempy]=20+n;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
             second=0;
@@ -359,31 +361,37 @@ while (n>0){
     }
     clearmouseclick(WM_LBUTTONDOWN);
     delay(5);
-}
+}*/
 
 //*******************************************БОТ РАССТАВЛЯЕТ СВОИ КОРАБЛИ: ********************************************************
 
-for (i=0;i<12;i++){
-        p2[0][i]=-1;
-        p2[i][0]=-1;
-        p2[11][i]=-1;
-        p2[i][11]=-1;
-    }
 
-int nachalox,nachaloy;
-//dir=1 - gorizontal; dir=2 - vertikal
-nachalox=rand()%10;
-nachaloy=rand()%10;
-p2[nachalox][nachaloy]=41;
-dir=rand()%2+1;
+int k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
+
+
+//4-х палубник:
+      srand(time(NULL));
+      dir=(rand()%2)+1;
+      key1=(rand()%6)+1;
+      key2=(rand()%10)+1;  //7
+      if (dir==1) 
+      for (k=0;k<4;k++)
+      p2[key1+k][key2]=41;
+      
+      key1=(rand()%10)+1;
+      key2=(rand()%6)+1;
+      
+      if (dir==2)
+      for (k=0;k<4;k++)
+      p2[key2][key1+k]=41;
+            int f;      
+      
+        for (k=0;k<12;k++){
+      for (f=0;f<12;f++)
+      printf("%i ",p2[k][f]);
+      printf("\n");
+      }
 int temp;
-if(dir==1){ 
-    if(temp=rand()%2) p2[nachalox+1][nachaloy]=41;
-    else p2[nachalox-1][nachaloy]=41;
-    if(temp) if(rand()%2) p2[nachalox+2][nachaloy]=41;
-            else p2[nachalox-2][nachaloy]=41;
-    
-}
 
 
 
@@ -456,15 +464,15 @@ if (turn==1){
         
     if ((turn-1)) //Ход второго игрока
        if((ismouseclick(WM_LBUTTONDOWN)&&mousex()>600&&mousex()<1000&&mousey()>40&&mousey()<440)){
-          if (p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]==1){
+          if (p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]>1){
           numhit2++;
           floodfill(mousex(),mousey(),COLOR(255,255,255)); 
           clearmouseclick(WM_LBUTTONDOWN);
-          p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]==-1; //Флаг, что клетка известна
+          p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]=-1; //Флаг, что клетка известна
           continue;
           }
           else{                   
-             if (p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]==-1){ //Если клетка уже известна
+             if (p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]<0){ //Если клетка уже известна
              clearmouseclick(WM_LBUTTONDOWN); 
              continue; 
              }
