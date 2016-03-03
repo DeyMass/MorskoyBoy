@@ -156,16 +156,17 @@ int main(){
 p1[i][j]=0;
 p2[i][j]=0;
 }
-  initwindow(440,800,"Place your boats, player 1");
+/*  initwindow(440,800,"Place your boats, player 1");
   pprint();
 
   settextstyle(8,0,4);
   setcolor(COLOR(0,255,0));
   bgiout<<"œÓÒÚ‡‚¸ 4-ı Ô‡ÎÛ·ÌËÍ";
-  outstreamxy(0,700);
+  outstreamxy(0,700);*/
   int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
+  /*
   setfillstyle(1,COLOR(0,255,0));
-closegraph();  /*
+
   //*********************************************************◊≈“€–®’œ¿À”¡Õ» *************************************************************
 while (1){
     tempx=(int)((float)mousex()/40);
@@ -361,8 +362,8 @@ while (n>0){
     }
     clearmouseclick(WM_LBUTTONDOWN);
     delay(5);
-}*/
-
+}
+*/
 //*******************************************¡Œ“ –¿——“¿¬Àﬂ≈“ —¬Œ»  Œ–¿¡À»: ********************************************************
 
 
@@ -371,19 +372,6 @@ int k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
 
 //4-ı Ô‡ÎÛ·ÌËÍ:
       srand(time(NULL));
-      dir=(rand()%2)+1;
-      key1=(rand()%6)+1;
-      key2=(rand()%10)+1;  //7
-      if (dir==1) 
-      for (k=0;k<4;k++)
-      p2[key1+k][key2]=41;
-      
-      key1=(rand()%10)+1;
-      key2=(rand()%6)+1;
-      
-      if (dir==2)
-      for (k=0;k<4;k++)
-      p2[key2][key1+k]=41;
             int f;      
       
         for (k=0;k<12;k++){
@@ -392,15 +380,58 @@ int k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
       printf("\n");
       }
 int temp;
+initwindow(800,800);
 
+repeat:
+    cleardevice();
+        for (k=0;k<12;k++)
+      for (f=0;f<12;f++)
+    p2[k][f]=0;
+pprint();
+//***********************************◊≈“€–®’œ¿À”¡Õ»  ƒÀﬂ ¡Œ“¿***********************************************************
+      dir=(rand()%2)+1; 
+      if (dir==1){
+      key1=(rand()%6)+1;
+      key2=(rand()%10)+1; 
+        for (k=0;k<4;k++)
+        p2[key1+k][key2]=41;
+}
+     
+      if (dir==2){
+      key1=(rand()%7)+1;
+      key2=(rand()%10)+1;
+         for (k=0;k<4;k++)
+         p2[key2][key1+k]=41;
+}
+setfillstyle(1,COLOR(0,255,0));
+        for (k=0;k<12;k++){
+      for (f=0;f<12;f++)
+        if(p2[k][f]==41)floodfill((k*40)+5,(f*40)+5,COLOR(255,255,255));
+      }
+//***********************************“–®’œ¿À”¡Õ»  ƒÀﬂ ¡Œ“¿******************************************************************      
 
-
-
-
-
-
-
-
+    dir=(rand()%2)+1;
+    if (dir==1){
+        again1:
+      key1=(rand()%6)+1;
+      key2=(rand()%10)+1;
+    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30) floodfill((key1*40)+5,(key2*40)+5,COLOR(255,255,255));    
+    else goto again1;
+    }
+    if (dir==2){
+        again2:
+      key1=(rand()%7)+1;
+      key2=(rand()%10)+1;
+    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30) floodfill((key1*40)+5,(key2*40)+5,COLOR(255,255,255));    
+        else goto again2;
+        }
+      
+      
+      
+      
+printf("key1=%i key2=%i dir=%i",key1,key2,dir);
+getch();
+goto repeat;
 
 
 
