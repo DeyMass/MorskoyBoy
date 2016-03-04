@@ -156,15 +156,15 @@ int main(){
 p1[i][j]=0;
 p2[i][j]=0;
 }
-/*  initwindow(440,800,"Place your boats, player 1");
+  initwindow(440,800,"Place your boats, player 1");
   pprint();
 
   settextstyle(8,0,4);
   setcolor(COLOR(0,255,0));
   bgiout<<"Поставь 4-х палубник";
-  outstreamxy(0,700);*/
+  outstreamxy(0,700);
   int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
-  /*
+  
   setfillstyle(1,COLOR(0,255,0));
 
   //*********************************************************ЧЕТЫРЁХПАЛУБНИК*************************************************************
@@ -363,26 +363,20 @@ while (n>0){
     clearmouseclick(WM_LBUTTONDOWN);
     delay(5);
 }
-*/
+
 //*******************************************БОТ РАССТАВЛЯЕТ СВОИ КОРАБЛИ: ********************************************************
 
 
-int k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
+int f,k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
 
 
 //4-х палубник:
-      srand(time(NULL));
-            int f;      
+      srand(time(NULL));      
       
-int temp;
-initwindow(800,800);
-
-repeat:
-    cleardevice();
         for (k=0;k<12;k++)
       for (f=0;f<12;f++)
     p2[k][f]=0;
-pprint();
+
 //***********************************ЧЕТЫРЁХПАЛУБНИК ДЛЯ БОТА***********************************************************
       dir=(rand()%2)+1; 
       if (dir==1){
@@ -452,7 +446,7 @@ setfillstyle(1,COLOR(0,255,0));
         }
     
 //***********************************ДВУХПАЛУБНИКИ ДЛЯ БОТА******************************************************************      
-    int n;
+
     for (n=3;n>0;n--){
    dir=(rand()%2)+1;
     if (dir==1){
@@ -499,7 +493,6 @@ setfillstyle(1,COLOR(0,255,0));
       }
 getch();
 
-goto repeat;
 
 
 
@@ -520,7 +513,7 @@ goto repeat;
 //***************************************************START IGRI*****************************************************************
 int tx=0,ty=0;
 settextstyle(8,0,16);
-int c=0,checksum=0,flag=0,ready=0;
+int c=0,checksum=0,flag=0,ready=0,temp2x,temp2y;
 
 int numhit1=0,numhit2=0;
 
@@ -528,6 +521,8 @@ int numhit1=0,numhit2=0;
     turnprint();
     pprint();
     while(1){
+        
+    printf("%i",p1[tempx][tempy]);
 if (turn==1){ 
               printarrow2(COLOR(0,0,0)); 
               printarrow1(COLOR(0,255,0));
@@ -537,25 +532,31 @@ if (turn==1){
    printarrow2(COLOR(0,255,0));
 }
              
-    setfillstyle(1,COLOR(200,0,0));
+             
+        tempx=(int)((float)mousex()/40);
+        tempy=(int)((float)mousey()/40);
+        temp2x=(int)(((float)mousex()-600)/40);
+        temp2y=(int)(((float)mousey()-600)/40);
    if (!(turn-1))    //Ход первого игрока
        if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440){
-          if (p1[(int)(((float)mousex()-40)/40)][(int)(((float)mousey()-40)/40)]>=1){
+          if (p1[tempx][tempy]>=1){
           numhit1++;
+    setfillstyle(1,COLOR(200,0,0));
           floodfill(mousex(),mousey(),COLOR(255,255,255));    
-    p1[(int)(((float)mousex()-40)/40)][(int)(((float)mousey()-40)/40)]=-1; //флаг на то, что клетка уже известна
+    p1[tempx][tempy]=-p1[tempx][tempy]; //флаг на то, что клетка уже известна
+    clearmouseclick(WM_LBUTTONDOWN);
           continue;
           }
 
           else{
-                  if (p1[(int)(((float)mousex()-40)/40)][(int)(((float)mousey()-40)/40)]==-1){
+                  if (p1[tempx][tempy]==-1){
                   clearmouseclick(WM_LBUTTONDOWN); 
                   continue;
                   } //Если клетка уже известна
                   else { //ОЧЕНЬ ВАЖНЫЙ И ОЧЕНЬ БЕСПОЛЕЗНЫЙ ELSE БЕЗ КОТОРОГО НИЧЕГО НЕ РАБОТАЕТ... вот...
           setfillstyle(1,COLOR(200,200,200));
               floodfill(mousex(),mousey(),COLOR(255,255,255)); 
-              p1[(int)(((float)mousex()-40)/40)][(int)(((float)mousey()-40)/40)]=-1; //Клетка уже известна
+              p1[tempx][tempy]=-1; //Клетка уже известна
               }
           }
          if (mousex()%40!=0||mousey()%40==0) turnprint(); //Чтобы клик на расчерчивающую линию не считался за ход
@@ -563,15 +564,15 @@ if (turn==1){
         
     if ((turn-1)) //Ход второго игрока
        if((ismouseclick(WM_LBUTTONDOWN)&&mousex()>600&&mousex()<1000&&mousey()>40&&mousey()<440)){
-          if (p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]>1){
+          if (p2[temp2x][tempy]>1){
           numhit2++;
           floodfill(mousex(),mousey(),COLOR(255,255,255)); 
           clearmouseclick(WM_LBUTTONDOWN);
-          p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]=-1; //Флаг, что клетка известна
+          p2[temp2x][tempy]=-p2[temp2x][tempy]; //Флаг, что клетка известна
           continue;
           }
           else{                   
-             if (p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]<0){ //Если клетка уже известна
+             if (p2[temp2x][tempy]<0){ //Если клетка уже известна
              clearmouseclick(WM_LBUTTONDOWN); 
              continue; 
              }
@@ -579,7 +580,7 @@ if (turn==1){
 
           setfillstyle(1,COLOR(200,200,200));
           floodfill(mousex(),mousey(),COLOR(255,255,255));
-          p2[(int)(((float)mousex()-600)/40)][(int)(((float)mousey()-40)/40)]=-1; //Флаг, что клетка уже известна
+          p2[temp2x][tempy]=-1; //Флаг, что клетка уже известна
           }
       if (mousex()%40!=0||mousey()%40==0) turnprint(); //Чтобы клик на расчерчивающую линию не считался за ход
        }              
