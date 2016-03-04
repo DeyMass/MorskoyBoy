@@ -374,11 +374,6 @@ int k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
       srand(time(NULL));
             int f;      
       
-        for (k=0;k<12;k++){
-      for (f=0;f<12;f++)
-      printf("%i ",p2[k][f]);
-      printf("\n");
-      }
 int temp;
 initwindow(800,800);
 
@@ -404,33 +399,106 @@ pprint();
          p2[key2][key1+k]=41;
 }
 setfillstyle(1,COLOR(0,255,0));
-        for (k=0;k<12;k++){
-      for (f=0;f<12;f++)
-        if(p2[k][f]==41)floodfill((k*40)+5,(f*40)+5,COLOR(255,255,255));
-      }
-//***********************************“–®’ѕјЋ”ЅЌ»  ƒЋя Ѕќ“ј******************************************************************      
+//***********************************ѕ≈–¬џ… “–®’ѕјЋ”ЅЌ»  ƒЋя Ѕќ“ј******************************************************************      
 
-    dir=(rand()%2)+1;
+   dir=(rand()%2)+1;
+   
     if (dir==1){
         again1:
-      key1=(rand()%6)+1;
-      key2=(rand()%10)+1;
-    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30) floodfill((key1*40)+5,(key2*40)+5,COLOR(255,255,255));    
-    else goto again1;
-    }
+      key1=(rand()%10)+1;
+      key2=(rand()%8)+3;
+    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2]<1&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30&&p2[key1-1][key2]<30&&p2[key1-1][key2]<30){
+        if(p2[key1][key2]<1&&p2[key1][key2-1]<1&&p2[key1][key2-2]<1&&p2[key1][key2-3]<1&&p2[key1+1][key2-2]<1&&p2[key1+1][key2-3]<1&&p2[key1-1][key2-2]<1&&p2[key1-1][key2-3]<1){ p2[key1][key2]=32; p2[key1][key2-1]=32;p2[key1][key2-2]=32;}
+        else goto again1;     
+        }
+    else goto again1; //again1 - чтобы не мен€ло траекторию трЄхпалубника, а просто переносило его в любое другое свободное место
+    }//dir==2 - vertikal; dir==1 - gorizontal
     if (dir==2){
         again2:
-      key1=(rand()%7)+1;
+      key1=(rand()%8)+3;
       key2=(rand()%10)+1;
-    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30) floodfill((key1*40)+5,(key2*40)+5,COLOR(255,255,255));    
+    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30&&p2[key1-1][key2]<30&&p2[key1-1][key2]<30){
+            if (p2[key1-3][key2+1]<1&&p2[key1-3][key2-1]<1&&p2[key1-3][key2]<1&&p2[key1-2][key2]<1&&p2[key1-1][key2]<1&&p2[key1-2][key2+1]<1&&p2[key1-1][key2+1]<1&&p2[key1-1][key2-1]<1&&p2[key1-2][key2-1]<1&&p2[key1][key2-1]<1&&p2[key1][key2+1]<1){ p2[key1-1][key2]=32; p2[key1-2][key2]=32; p2[key1][key2]=32;}
+            else goto again2;//again2 - чтобы не мен€ло траекторию трЄхпалубника, а просто переносило его в любое другое свободное место
+        }   
         else goto again2;
         }
+     
       
-      
-      
-      
-printf("key1=%i key2=%i dir=%i",key1,key2,dir);
+//*****************************************************¬“ќ–ќ… “–®’ѕјЋ”ЅЌ»  ƒЋя Ѕќ“ј******************************************************************      
+
+    dir=(rand()%2)+1;
+   
+    if (dir==1){
+        again11:
+      key1=(rand()%10)+1;
+      key2=(rand()%8)+2;
+    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30){
+        if(p2[key1][key2]<1&&p2[key1][key2-1]<1&&p2[key1][key2-2]<1&&p2[key1][key2-3]<1&&p2[key1-1][key2]<1&&p2[key1+1][key2-2]<1&&p2[key1+1][key2-3]<1&&p2[key1-1][key2-2]<1&&p2[key1-1][key2-3]<1){ p2[key1][key2]=31; p2[key1][key2-1]=31;p2[key1][key2-2]=31;}
+        else goto again11;     
+        }
+    else goto again11; //again1 - чтобы не мен€ло траекторию трЄхпалубника, а просто переносило его в любое другое свободное место
+    }//dir==2 - vertikal; dir==1 - gorizontal
+    if (dir==2){
+        again21:
+      key1=(rand()%8)+3;
+      key2=(rand()%10)+1;
+    if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30){ 
+//«десь таитс€ древн€€ маги€!
+            if (p2[key1-3][key2+1]<1&&p2[key1-3][key2-1]<1&&p2[key1-3][key2]<1&&p2[key1-2][key2]<1&&p2[key1-1][key2]<1&&p2[key1-2][key2+1]<1&&p2[key1-1][key2+1]<1&&p2[key1-1][key2-1]<1&&p2[key1-2][key2-1]<1&&p2[key1][key2-1]<1&&p2[key1][key2+1]<1){ p2[key1-1][key2]=31; p2[key1-2][key2]=31; p2[key1][key2]=31;}
+            else goto again21;//again2 - чтобы не мен€ло траекторию трЄхпалубника, а просто переносило его в любое другое свободное место
+        }   
+        else goto again21;
+        }
+    
+//***********************************ƒ¬”’ѕјЋ”ЅЌ» » ƒЋя Ѕќ“ј******************************************************************      
+    int n;
+    for (n=3;n>0;n--){
+   dir=(rand()%2)+1;
+    if (dir==1){
+        again12:
+      key1=(rand()%10)+1;
+      key2=(rand()%9)+2;
+    if (p2[key1][key2]<1&&p2[key1+1][key2+1]<1&&p2[key1+1][key2-1]<1&&p2[key1-1][key2+1]<1&&p2[key1-1][key2-1]<1&&p2[key1][key2+1]<1&&p2[key1+1][key2]<1){
+        if(p2[key1][key2]<1&&p2[key1][key2]<1&&p2[key1-1][key2]<1&&p2[key1+1][key2]<1&&p2[key1][key2-1]<1&&p2[key1][key2-2]<1&&p2[key1+1][key2-2]<1&&p2[key1-1][key2-2]<1){ p2[key1][key2]=20+n; p2[key1][key2-1]=20+n;}
+        else goto again12;     
+        }
+    else goto again12; //again1 - чтобы не мен€ло траекторию трЄхпалубника, а просто переносило его в любое другое свободное место
+    }//dir==2 - vertikal; dir==1 - gorizontal
+    if (dir==2){
+        again22:
+      key1=(rand()%9)+2;
+      key2=(rand()%10)+1;
+    if (p2[key1][key2]<1&&p2[key1+1][key2+1]<1&&p2[key1+1][key2-1]<1&&p2[key1-1][key2+1]<1&&p2[key1-1][key2-1]<1&&p2[key1][key2+1]<1&&p2[key1+1][key2]<1){ 
+            if (p2[key1][key2]<1&&p2[key1-2][key2]<1&&p2[key1-1][key2]<1&&p2[key1-2][key2+1]<1&&p2[key1-1][key2+1]<1&&p2[key1-1][key2-1]<1&&p2[key1-2][key2-1]<1&&p2[key1][key2-1]<1&&p2[key1][key2+1]<1){ p2[key1-1][key2]=20+n; p2[key1][key2]=20+n;}
+            else goto again22;//again2 - чтобы не мен€ло траекторию трЄхпалубника, а просто переносило его в любое другое свободное место
+        }   
+        else goto again22;
+        }
+}
+
+//*******************************************************ќƒЌќѕјЋ”ЅЌ» » ƒЋя Ѕќ“ј******************************************************************      
+
+    for (n=4;n>0;n--){   
+        again3:
+      key1=(rand()%10)+1;
+      key2=(rand()%10)+1;
+    if (p2[key1-1][key2]<1&&p2[key1][key2-1]<1&&p2[key1][key2]<1&&p2[key1+1][key2+1]<1&&p2[key1+1][key2-1]<1&&p2[key1-1][key2+1]<1&&p2[key1-1][key2-1]<1&&p2[key1][key2+1]<1&&p2[key1+1][key2]<1){
+        if(p2[key1][key2]<1&&p2[key1][key2-1]<1){ p2[key1][key2]=10+n;}
+        else goto again3;     
+        }
+    else goto again3; 
+}
+
+
+
+
+      for (k=1;k<11;k++){
+      for (f=1;f<11;f++)
+        if(p2[k][f]>0)floodfill((k*40)+5,(f*40)+5,COLOR(255,255,255));
+      }
 getch();
+
 goto repeat;
 
 
