@@ -150,12 +150,100 @@ outtext("J");
 using namespace std;
 
 int main(){
+int numhit1=0,numhit2=0;
+int n=1;  
+int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
+int tx=0,ty=0,c=0,checksum=0,flag=0,ready=0,temp2x,temp2y;
     int p1[12][12],p2[12][12],put=1;
     for (int i=0;i<12;i++)
     for (int j=0;j<12;j++){
 p1[i][j]=0;
 p2[i][j]=0;
 }
+initwindow(400,400);
+int bot,menu=0;//100 100 310 155
+
+setcolor(COLOR(231,200,231));
+settextstyle(4,0,7);
+outtextxy(100,100,"Start");
+outtextxy(100,250,"Exit");
+
+while(1){  
+if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>100&&mousex()<310&&mousey()>100&&mousey()<175){
+closegraph();
+    initwindow(400,400);
+setcolor(COLOR(200,169,231));
+settextstyle(4,0,4);
+outtextxy(50,100,"Player vs Player");
+outtextxy(50,200,"Player vs Bot");
+outtextxy(50,300,"Main menu");
+menu=1;
+clearmouseclick(WM_LBUTTONDOWN);
+
+}
+while(menu==1){
+    printf("%i %i\n",mousex(),mousey());
+if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<390&&mousey()>100&&mousey()<135){
+    bot=0;
+    closegraph();
+    initwindow(400,400);
+    settextstyle(1,0,5);
+    outtextxy(50,150,"LOADING");
+    setcolor(COLOR(0,255,0));
+        for (int z=10;z<260;z+=10){
+        outtextxy(50+z,200,".");   
+        delay(100);
+        }
+    menu=-1;
+    break;
+    }
+
+if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<335&&mousey()>200&&mousey()<235){
+    bot=1;
+    closegraph();
+    initwindow(400,400);
+    settextstyle(1,0,5);
+    outtextxy(50,150,"LOADING");
+    setcolor(COLOR(255,0,0));
+        for (int z=10;z<240;z+=30){
+        outtextxy(50+z,200,".");
+        delay(100);
+        }
+    menu=-1;
+    break;
+    }
+    
+if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<290&&mousey()>300&&mousey()<330){
+    closegraph();
+    initwindow(400,400);
+setcolor(COLOR(231,200,231));
+settextstyle(4,0,7);
+outtextxy(100,100,"Start");
+outtextxy(100,250,"Exit");
+    menu=0;
+    }
+    
+    
+clearmouseclick(WM_LBUTTONDOWN);    
+    delay(10);
+}
+
+if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>45&&mousex()<331&&mousey()>250&&mousey()<323){
+    cleardevice();
+    settextstyle(1,0,4);
+    outtextxy(50,150,"See you later ;)");
+    for (int z=10;z<40;z+=10){
+    outtextxy(50+z,200,".");   
+    delay(500);
+    }
+    clearmouseclick(WM_LBUTTONDOWN);
+goto end;
+    }
+clearmouseclick(WM_LBUTTONDOWN);
+if (menu==-1){ break; closegraph();}
+}
+ closegraph();   
+
   initwindow(440,800,"Place your boats, player 1");
   pprint();
 
@@ -163,10 +251,9 @@ p2[i][j]=0;
   setcolor(COLOR(0,255,0));
   bgiout<<"Поставь 4-х палубник";
   outstreamxy(0,700);
-  int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
   
   setfillstyle(1,COLOR(0,255,0));
-
+//Первый игрок расставляет свои корабли
   //*********************************************************ЧЕТЫРЁХПАЛУБНИК*************************************************************
 while (1){
     tempx=(int)((float)mousex()/40);
@@ -219,7 +306,7 @@ while (1){
 bgiout<<"Поставьте два 3-х палубника";
 outstreamxy(0,700);
 
-int n=1;
+
 first=1;
 setfillstyle(1,COLOR(0,255,0));
 dir=0;
@@ -364,12 +451,260 @@ while (n>0){
     delay(5);
 }
 
+
+
+
+
+
+
+cleardevice();
+settextstyle(1,0,7);
+outtextxy(100,50,"Player2");
+outtextxy(100,250,"Your");
+outtextxy(100,450,"Turn");
+
+
+delay(2000);
+closegraph();
+
+dir=0;
+first=1;
+second=0;
+third=0;
+if(bot==0){
+  initwindow(440,800,"Place your boats, player 2");
+  pprint();
+
+  settextstyle(8,0,4);
+  setcolor(COLOR(0,255,0));
+  bgiout<<"Поставь 4-х палубник";
+  outstreamxy(0,700);
+  
+  setfillstyle(1,COLOR(0,255,0));
+//ВТОРОЙ игрок расставляет свои корабли
+  //*********************************************************ЧЕТЫРЁХПАЛУБНИК*************************************************************
+while (1){
+    tempx=(int)((float)mousex()/40);
+    tempy=(int)((float)mousey()/40);
+         if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+       if (first){
+            if (p2[tempx][tempy]<1&&mousex()%40!=0&&mousey()%40!=0){
+            p2[tempx][tempy]=41;
+          floodfill(mousex(),mousey(),COLOR(255,255,255));    
+          second=1;
+          first=0;    
+          ex=(int)((float)mousex()/40);
+          ey=(int)((float)mousey()/40);
+            }
+         }
+    
+      if (first==0)
+         if (second==1&&p2[tempx][tempy]<1){
+ if ((p2[tempx+1][tempy]==41||p2[tempx][tempy+1]==41||p2[tempx-1][tempy]==41||p2[tempx][tempy-1]==41)&&p2[tempx][tempy]!=41){
+  floodfill(mousex(),mousey(),COLOR(255,255,255));
+  p2[tempx][tempy]=41;
+  second=0;
+  third=2;  
+
+  if (ex-((int)((float)mousex()/40))==0) dir=2;
+  else dir=1;
+ }
+ }
+            if (third>=0){
+              if (dir==2&&(p2[tempx][tempy+1]==41||p2[tempx][tempy-1]==41)&&p2[tempx][tempy]!=41){
+                    third--;
+  floodfill(mousex(),mousey(),COLOR(255,255,255));
+  p2[tempx][tempy]=41;
+     if (third==0) break;
+}
+                      
+             if (dir==1){
+        if (p2[tempx][tempy]!=41&&(p2[tempx+1][tempy]>1||p2[tempx-1][tempy]>1)){
+    third--;
+  floodfill(mousex(),mousey(),COLOR(255,255,255));
+  p2[(int)((float)mousex()/40)][(int)((float)mousey()/40)]=41;
+        if (third==0) break;     
+                    }    
+                }     
+            }
+}//*******************************************
+      clearmouseclick(WM_LBUTTONDOWN);
+      delay(10);
+}
+bgiout<<"Поставьте два 3-х палубника";
+outstreamxy(0,700);
+n=1;
+
+first=1;
+setfillstyle(1,COLOR(0,255,0));
+dir=0;
+while (1){
+    tempx=(int)((float)mousex()/40);
+    tempy=(int)((float)mousey()/40);
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+        if (first==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
+            p2[tempx][tempy]=31;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            first=0;
+            second=1;
+            clearmouseclick(WM_LBUTTONDOWN);
+            }
+        if (second==1&&((p2[tempx-1][tempy]==31&&p2[tempx+1][tempy]<1)||(p2[tempx+1][tempy]==31&&p2[tempx-1][tempy]<1)||(p2[tempx][tempy+1]==31&&p2[tempx][tempy-1]<1)||(p2[tempx][tempy-1]==31&&p2[tempx][tempy+1]<1))&&p2[tempx][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
+            if (p2[tempx][tempy+1]==31||p2[tempx][tempy-1]==31) dir=2;
+            else dir=1;
+            p2[tempx][tempy]=31;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            second=0;
+            third=1;
+            }
+        if (third==1&&dir==2&&p2[tempx][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx+1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&((p2[tempx][tempy-1]==31&&p2[tempx][tempy+1]==0)||(p2[tempx][tempy-1]==0&&p2[tempx][tempy+1]==31))){
+            p2[tempx][tempy]=31;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            n--;
+            first=1;
+            third=0;
+            dir=0;
+            }
+        if (third==1&&dir==1&&p2[tempx][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx+1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&((p2[tempx-1][tempy]==0&&p2[tempx+1][tempy]==31)||(p2[tempx-1][tempy]==31&&p2[tempx+1][tempy]==0))){
+            p2[tempx][tempy]=31;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            n--;
+            first=1;
+            third=0;
+            dir=0;
+            }
+        }
+    if (n==0) break;
+    clearmouseclick(WM_LBUTTONDOWN);
+    delay(1);
+    }
+n=1;
+first=1;
+setfillstyle(1,COLOR(0,255,0));
+dir=0;
+bgiout<<"поставьте 3-х палубник";
+outstreamxy(0,700);
+while (1){
+
+    tempx=(int)((float)mousex()/40);
+    tempy=(int)((float)mousey()/40);
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+        if (first==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
+            p2[tempx][tempy]=32;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            first=0;
+            second=1;
+            clearmouseclick(WM_LBUTTONDOWN);    
+            }
+        if (second==1&&((p2[tempx-1][tempy]==32&&p2[tempx+1][tempy]<1)||(p2[tempx+1][tempy]==32&&p2[tempx-1][tempy]<1)||(p2[tempx][tempy+1]==32&&p2[tempx][tempy-1]<1)||(p2[tempx][tempy-1]==32&&p2[tempx][tempy+1]<1))&&p2[tempx][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
+            if (p2[tempx][tempy+1]==32||p2[tempx][tempy-1]==32) dir=2;
+            else dir=1;
+            p2[tempx][tempy]=32;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            second=0;
+            third=1;
+            }
+        if (third==1&&dir==2&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx+1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx][tempy]<1&&((p2[tempx][tempy-1]==32&&p2[tempx][tempy+1]==0)||(p2[tempx][tempy-1]==0&&p2[tempx][tempy+1]==32))){
+            p2[tempx][tempy]=32;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            n--;
+            first=1;
+            third=0;
+            dir=0;
+            }
+        if (third==1&&dir==1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx+1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx][tempy]<1&&((p2[tempx-1][tempy]==0&&p2[tempx+1][tempy]==32)||(p2[tempx-1][tempy]==32&&p2[tempx+1][tempy]==0))){
+            p2[tempx][tempy]=32;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            n--;
+            first=1;
+            third=0;
+            dir=0;
+            }
+        }
+    if (n==0) break;
+    
+clearmouseclick(WM_LBUTTONDOWN);
+    delay(1);
+    }
+
+bgiout<<"поставьте 3 2-х палубника";
+outstreamxy(0,700);
+n=3;
+first=1;
+third=0;
+second=0;
+//---------------------------------------------------ДВУХПАЛУБНИКИ! ОДНИМ ЦИКЛОМ---------------------------------------------------------------------
+while(n>0){
+    tempx=(int)((float)mousex()/40);
+    tempy=(int)((float)mousey()/40);
+    
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+        if (first==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
+            p2[tempx][tempy]=20+n;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            first=0;
+            second=1;
+            }
+        if (second==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<20+n+1&&p2[tempx][tempy-1]<20+n+1&&p2[tempx+1][tempy]<20+n+1&&p2[tempx-1][tempy]<20+n+1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx+1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&(p2[tempx-1][tempy]==20+n||p2[tempx+1][tempy]==20+n||p2[tempx][tempy+1]==20+n||p2[tempx][tempy-1]==20+n)){
+            p2[tempx][tempy]=20+n;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            second=0;
+            n--;
+            first=1;
+            }
+    }
+    
+    clearmouseclick(WM_LBUTTONDOWN);    
+    delay(5);
+}
+n=4;
+first=1;
+second=0;
+third=0;
+bgiout<<"Поставьте 4 однопалубника";
+outstreamxy(0,700);
+while (n>0){
+    tempx=(int)((float)mousex()/40);
+    tempy=(int)((float)mousey()/40);
+    
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+        if (p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
+            p2[tempx][tempy]=10+n;
+            floodfill(mousex(),mousey(),COLOR(255,255,255));
+            n--;
+        }
+    }
+    clearmouseclick(WM_LBUTTONDOWN);
+    delay(5);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //*******************************************БОТ РАССТАВЛЯЕТ СВОИ КОРАБЛИ: ********************************************************
 
 
 int f,k,key1,key2;//dir=1 - gorizontal; dir=2 - vertikal
 
-
+if (bot==1){
+    closegraph();
 //4-х палубник:
       srand(time(NULL));      
       
@@ -484,14 +819,7 @@ setfillstyle(1,COLOR(0,255,0));
     else goto again3; 
 }
 
-
-
-
-      for (k=1;k<11;k++){
-      for (f=1;f<11;f++)
-        if(p2[k][f]>0)floodfill((k*40)+5,(f*40)+5,COLOR(255,255,255));
-      }
-getch();
+}
 
 
 
@@ -511,18 +839,15 @@ getch();
 
 
 //***************************************************START IGRI*****************************************************************
-int tx=0,ty=0;
 settextstyle(8,0,16);
-int c=0,checksum=0,flag=0,ready=0,temp2x,temp2y;
 
-int numhit1=0,numhit2=0;
+
 
     initwindow(1000,500,"Naval Battle!");
     turnprint();
     pprint();
     while(1){
         
-    printf("%i",p1[tempx][tempy]);
 if (turn==1){ 
               printarrow2(COLOR(0,0,0)); 
               printarrow1(COLOR(0,255,0));
@@ -535,10 +860,10 @@ if (turn==1){
              
         tempx=(int)((float)mousex()/40);
         tempy=(int)((float)mousey()/40);
-        temp2x=(int)(((float)mousex()-600)/40);
-        temp2y=(int)(((float)mousey()-600)/40);
+        temp2x=(int)(((float)mousex()-560)/40);
+        temp2y=(int)(((float)mousey()-560)/40);
    if (!(turn-1))    //Ход первого игрока
-       if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440){
+       if (ismouseclick(WM_LBUTTONDOWN)&&mousex()%40!=0&&mousey()%40!=0&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440){
           if (p1[tempx][tempy]>=1){
           numhit1++;
     setfillstyle(1,COLOR(200,0,0));
@@ -557,15 +882,16 @@ if (turn==1){
           setfillstyle(1,COLOR(200,200,200));
               floodfill(mousex(),mousey(),COLOR(255,255,255)); 
               p1[tempx][tempy]=-1; //Клетка уже известна
+              turnprint();
               }
           }
-         if (mousex()%40!=0||mousey()%40==0) turnprint(); //Чтобы клик на расчерчивающую линию не считался за ход
        }
         
     if ((turn-1)) //Ход второго игрока
-       if((ismouseclick(WM_LBUTTONDOWN)&&mousex()>600&&mousex()<1000&&mousey()>40&&mousey()<440)){
+       if((ismouseclick(WM_LBUTTONDOWN)&&mousex()%40!=0&&mousey()%40!=0&&mousex()>600&&mousex()<1000&&mousey()>40&&mousey()<440)){
           if (p2[temp2x][tempy]>1){
           numhit2++;
+    setfillstyle(1,COLOR(200,0,0));
           floodfill(mousex(),mousey(),COLOR(255,255,255)); 
           clearmouseclick(WM_LBUTTONDOWN);
           p2[temp2x][tempy]=-p2[temp2x][tempy]; //Флаг, что клетка известна
@@ -581,8 +907,8 @@ if (turn==1){
           setfillstyle(1,COLOR(200,200,200));
           floodfill(mousex(),mousey(),COLOR(255,255,255));
           p2[temp2x][tempy]=-1; //Флаг, что клетка уже известна
+          turnprint();
           }
-      if (mousex()%40!=0||mousey()%40==0) turnprint(); //Чтобы клик на расчерчивающую линию не считался за ход
        }              
        
     clearmouseclick(WM_LBUTTONDOWN);                                                                 
@@ -596,4 +922,6 @@ else printf("WINNER: PLAYER1");
 
 closegraph();
 getch();
+end:
+tx=0;
     }
