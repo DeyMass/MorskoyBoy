@@ -1453,14 +1453,20 @@ regen:
     
     if (flag==1){
         temp=-p1[fixedx][fixedy];
-        if (temp/10>=2) {
+        if (temp/10==2) {
          if (temp2y==1){ shootx=fixedx-1;shooty=fixedy;    }
          if (temp2y==2){ shootx=fixedx+1;shooty=fixedy;    }
          if (temp2y==3){ shootx=fixedx;shooty=fixedy-1;    }
          if (temp2y==4){ shootx=fixedx;shooty=fixedy+1;    }
          if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}
         }
-        
+                if (temp/10==3) {
+         if (temp2y==1){ shootx=fixedx-1;shooty=fixedy;    }
+         if (temp2y==2){ shootx=fixedx+1;shooty=fixedy;    }
+         if (temp2y==3){ shootx=fixedx;shooty=fixedy-1;    }
+         if (temp2y==4){ shootx=fixedx;shooty=fixedy+1;    }
+         if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}
+        }
         
         
         }
@@ -1658,7 +1664,6 @@ regen:
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));
         }
             }
-            numhit2=20;
         clearmouseclick(WM_LBUTTONDOWN);
  settextstyle(7,0,10);
 if (numhit1==20){ 
