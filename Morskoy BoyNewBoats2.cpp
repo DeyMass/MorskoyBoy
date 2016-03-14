@@ -1015,6 +1015,12 @@ closegraph();
     initwindow(1000,500,"Naval Battle!");
     turnprint();
     pprint();
+    setfillstyle(1,COLOR(0,255,0));
+    if (bot==1){
+    for (int z=0;z<12;z++)
+        for (int l=0;l<12;l++)
+        if (p1[z][l]>0) floodfill(z*40+1,l*40+1,COLOR(255,255,255));            
+    }
     int fixedx, fixedy;
     
     int temp,shootx,shooty;
@@ -1424,18 +1430,17 @@ if (turn==1){
         
         
         
-        
+    
     
     
 //*****************************************************************ХОДИТ БОТ********************************************************************************
             if (bot==1&&turn==2){ 
             
-           delay(200);
+           delay(2000);
            notworking:
 
           shootx=rand()%10+1;
           shooty=rand()%10+1;
-    printf("+");
             if (p1[shootx][shooty]<0) goto notworking;
 /*temp=rand()%100;
 if (temp>90){
@@ -1450,33 +1455,54 @@ if (temp>90){
   */
 regen:
     temp2y=rand()%4+1;
-    
+    printf("%i\n,",flag);
     if (flag==1){
-        temp=-p1[fixedx][fixedy];
-        if (temp/10==2) {
+        if (temp/10>1) {
          if (temp2y==1){ shootx=fixedx-1;shooty=fixedy;    }
          if (temp2y==2){ shootx=fixedx+1;shooty=fixedy;    }
          if (temp2y==3){ shootx=fixedx;shooty=fixedy-1;    }
          if (temp2y==4){ shootx=fixedx;shooty=fixedy+1;    }
          if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}
         }
-                if (temp/10==3) {
-         if (temp2y==1){ shootx=fixedx-1;shooty=fixedy;    }
-         if (temp2y==2){ shootx=fixedx+1;shooty=fixedy;    }
-         if (temp2y==3){ shootx=fixedx;shooty=fixedy-1;    }
-         if (temp2y==4){ shootx=fixedx;shooty=fixedy+1;    }
+                if (flag==2) {
+                if (temp2y==1&&p1[fixedx-1][fixedy]<-2){shootx=fixedx-1;shooty=fixedy;}
+                if (temp2y==2&&p1[fixedx+1][fixedy]<-2){shootx=fixedx+1;shooty=fixedy;}
+                if (temp2y==3&&p1[fixedx][fixedy-1]<-2){shootx=fixedx;shooty=fixedy-1;}
+                if (temp2y==4&&p1[fixedx][fixedy+1]<-2){shootx=fixedx;shooty=fixedy+1;}
+                
          if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}
         }
+    if (flag==3){
+        if (p1[fixedx-1][fixedy]==-p1[fixedx][fixedy]){
+        if (p1[fixedx-2][fixedy]>0&&rand()%2) shootx=fixedx-2;
+        else shootx=fixedx+1;
+        }
+        
+        if (p1[fixedx+1][fixedy]==-p1[fixedx][fixedy]){
+        if (p1[fixedx-1][fixedy]>0&&rand()%2) shootx=fixedx-1;
+        else shootx=fixedx+2;
+        }
+        if (p1[fixedx][fixedy+1]==-p1[fixedx][fixedy]){
+        if (p1[fixedx][fixedy]>0&&rand()%2) shootx=fixedx-1;
+        else shootx=fixedx+2;
         
         
         }
+        if (p1[fixedx][fixedy-1]==-p1[fixedx][fixedy]){
+        
+        
+        }
+        
+    }
+        
+        
+}
     
     
         
     skip:
             tempx=shootx;
             tempy=shooty;
-            printf("%i %i\n\n%i %i\n**********\n",shootx,shooty,fixedx,fixedy);
             if (p1[shootx][shooty]!=-1&&p1[shootx][shooty]>1) {
                 
                 if((p1[tempx][tempy])/10==1) { //******************обруч вокруг однопалубника
@@ -1485,7 +1511,7 @@ regen:
                         for (int l=tempy-1;l<tempy+2;l++){
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]<1) {
                         p1[z][l]=-1;
-                        delay(2);
+                    
                        if (p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                 }
                     }
@@ -1496,14 +1522,14 @@ regen:
                     for (int z=tempx-2;z<tempx+2;z++) 
                         for (int l=tempy-1;l<tempy+2;l++){ 
                         if (p1[z][l]==0)p1[z][l]=-1; 
-                        delay(2); 
+                    
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1)floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                     }
                     if(p1[tempx+1][tempy]==-p1[temp2x][tempy]){ 
                         for (int z=tempx-1;z<tempx+3;z++)
                             for (int l=tempy-1;l<tempy+2;l++){
                                 if (p1[z][l]==0)p1[z][l]=-1;
-                                delay(2);
+                            
                                 if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                                 }
                     }
@@ -1511,14 +1537,14 @@ regen:
                         for(int z=tempx-1;z<tempx+2;z++)
                             for(int l=tempy-2;l<tempy+2;l++){
                                 if (p1[z][l]==0)p1[z][l]=-1;
-                                delay(2);
+                            
                                 if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                                 }
                     if(p1[tempx][tempy+1]==-p1[tempx][tempy])
                         for (int z=tempx-1;z<tempx+2;z++)
                             for (int l=tempy-1;l<tempy+3;l++){
                          if (p1[z][l]==0)p1[z][l]=-1;
-                                delay(2);
+                              
                                 if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         }
                    
@@ -1530,7 +1556,7 @@ regen:
                 for (int z=tempx-2;z<tempx+3;z++)
                     for (int l=tempy-1;l<tempy+2;l++){
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                      
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                     
                     }
@@ -1539,7 +1565,7 @@ regen:
                 for (int z=tempx-1;z<tempx+4;z++)
                     for (int l=tempy-1;l<tempy+2;l++){
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                        
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                     
                     }
@@ -1550,7 +1576,7 @@ regen:
                     for (int l=tempy-1;l<tempy+2;l++){
                    
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                        
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                     
                     }
@@ -1559,7 +1585,7 @@ regen:
                         for (int z=tempx-1;z<tempx+2;z++)
                             for (int l=tempy-2;l<tempy+3;l++){
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                        
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                 }
     }    
@@ -1567,7 +1593,7 @@ regen:
                         for (int z=tempx-1;z<tempx+2;z++)
                             for (int l=tempy-1;l<tempy+4;l++){
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                        
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                 }
             }    
@@ -1575,7 +1601,7 @@ regen:
                         for (int z=tempx-1;z<tempx+2;z++)
                             for (int l=tempy-3;l<tempy+2;l++){
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                       
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                 }
             } 
@@ -1589,14 +1615,14 @@ regen:
              for (int z=tempx-3;z<tempx+3;z++)
                 for (int l=tempy-1;l<tempy+2;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                       
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                     }
            if (p1[tempx-3][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
                 for (int z=tempx-4;z<tempx+2;z++)
                     for (int l=tempy-1;l<tempy+2;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                      
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         }
                         
@@ -1604,22 +1630,22 @@ regen:
                  for (int z=tempx-2;z<tempx+4;z++)
                 for (int l=tempy-1;l<tempy+2;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                     
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                     }
            if (p1[tempx+3][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy])
                 for (int z=tempx-1;z<tempx+5;z++)
                     for (int l=tempy-1;l<tempy+2;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                      
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         }  
-                        //ALDNCEREUIUL ?LNUD?ODREOAICEC
+                        //Ещё один круг вокрг 4-х палубника
                if (p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]&&p1[tempx][tempy-3]==-p1[tempx][tempy])
                 for (int z=tempx-1;z<tempx+2;z++)
                     for (int l=tempy-4;l<tempy+2;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                      
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         
                         }
@@ -1627,7 +1653,7 @@ regen:
                 for (int z=tempx-1;z<tempx+2;z++)
                     for (int l=tempy-3;l<tempy+3;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                     
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         
                         }
@@ -1635,26 +1661,26 @@ regen:
                 for (int z=tempx-1;z<tempx+2;z++)
                     for (int l=tempy-2;l<tempy+4;l++){
                      if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                    
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         }
               if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+3]==-p1[tempx][tempy])
                   for (int z=tempx-1;z<tempx+2;z++)
                     for (int l=tempy-1;l<tempy+5;l++){
                         if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
+                    
                         if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                         }
             }
-            p1[shootx][shooty]=-p1[shootx][shooty];
             setfillstyle(1,COLOR(200,0,0));
             fixedx=shootx;
             fixedy=shooty;
             numhit2++;
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));    
-            if (p1[shootx][shooty]/10!=1) flag=1;
-            
-            
+            if (p1[shootx][shooty]/10==2) flag=1;
+            if (p1[shootx][shooty]/10==3) flag++;
+            if (p1[shootx][shooty]/10==4) printf("ploxo");
+            p1[shootx][shooty]=-p1[shootx][shooty];
         }
         
             if (p1[shootx][shooty]==0){
@@ -1663,10 +1689,10 @@ regen:
             p1[shootx][shooty]=-1;
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));
         }
-            }
+    }
         clearmouseclick(WM_LBUTTONDOWN);
- settextstyle(7,0,10);
 if (numhit1==20){ 
+ settextstyle(7,0,10);
 cleardevice();
     outtextxy(50,50,"PLAYER 1");
     outtextxy(300,250,"WIN");
