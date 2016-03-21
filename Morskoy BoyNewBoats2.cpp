@@ -68,7 +68,7 @@ setfillstyle(1,COLOR(0,255,0));
     if (dir==1){
         again11:
       key1=(rand()%10)+1;
-      key2=(rand()%8)+2;
+      key2=(rand()%8)+3;
     if (p2[key1][key2]<30&&p2[key1+1][key2+1]<30&&p2[key1+1][key2-1]<30&&p2[key1-1][key2+1]<30&&p2[key1-1][key2-1]<30&&p2[key1][key2+1]<30&&p2[key1+1][key2]<30){
         if(p2[key1][key2]<1&&p2[key1][key2-1]<1&&p2[key1][key2-2]<1&&p2[key1][key2-3]<1&&p2[key1-1][key2]<1&&p2[key1+1][key2-2]<1&&p2[key1+1][key2-3]<1&&p2[key1-1][key2-2]<1&&p2[key1-1][key2-3]<1){ p2[key1][key2]=31; p2[key1][key2-1]=31;p2[key1][key2-2]=31;}
         else goto again11;     
@@ -284,6 +284,8 @@ outtext("J");
 using namespace std;
 
 int main(){
+int tflag=0;
+int tfx=0,tfy=0;
 int numhit1=0,numhit2=0;
 int n=1;  
 int first=1,second=0,third=-100,tempx,tempy,ex,ey,dir=0; //dir=1 - gorizontal; dir=2 - vertikal
@@ -333,6 +335,9 @@ if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<390&&mousey()>100&&mouse
 
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<335&&mousey()>200&&mousey()<235){
     bot=1;
+    tfx=1;
+    tfy=1;
+    tflag=1;
     closegraph();
     initwindow(400,400);
     settextstyle(1,0,5);
@@ -393,16 +398,20 @@ doagain:
     setcolor(COLOR(255,255,255));
     cleardevice();
   pprint();
+  
 setfillstyle(1,COLOR(0,0,0));
-bar(460,0,700,800);
+bar(460,0,700,550);
   settextstyle(8,0,4);
   setcolor(COLOR(0,255,0));
-  bgiout<<"Поставь 4-х палубник";
+  bgiout<<"Поставьте 4-х палубник";
   outstreamxy(0,600);
   setfillstyle(1,COLOR(255,0,0));
 bar(600,0,800,100);  
   setcolor(COLOR(0,255,0));
   settextstyle(1,0,2);
+  first=1;
+  second=0;
+  third=0;
   outtextxy(550,400,"PLACE");
   outtextxy(550,450,"RANDOM");
   setfillstyle(1,COLOR(0,255,0));
@@ -415,9 +424,11 @@ while (1){
                     for (int l=0;l<12;l++)
                     p1[z][l]=0;
                 random(p1);
+                
                 cleardevice();
                 setcolor(COLOR(255,255,255));
                 pprint();
+            
                 setfillstyle(1,COLOR(0,0,0));
 bar(460,0,700,800);
                 setfillstyle(1,COLOR(0,255,0));
@@ -434,6 +445,7 @@ bar(460,0,700,800);
                     for (int l=0;l<12;l++)
                     p1[z][l]=0;
             clearmouseclick(WM_LBUTTONDOWN);
+            
             goto doagain;
             
             }
@@ -488,10 +500,11 @@ bar(460,0,700,800);
 }
 
 //*************************************************************ПЕРВЫЙ ТРЁХПАЛУБНИК*********************************************************
+  settextstyle(8,0,4);
 bgiout<<"Поставьте два 3-х палубника";
 outstreamxy(0,600);
 setfillstyle(1,COLOR(0,0,0));
-bar(441,100,800,700);
+bar(441,100,800,550);
 first=1;
 setfillstyle(1,COLOR(0,255,0));
 dir=0;
@@ -550,7 +563,8 @@ while (1){
 first=1;
 setfillstyle(1,COLOR(0,255,0));
 dir=0;
-bgiout<<"поставьте 3-х палубник";
+  settextstyle(8,0,4);
+bgiout<<"поставьте 3-х палубник                ";
 //*******************************************************ВТОРОЙ ТРЕХПАЛУБНИК*************************************************************************
 outstreamxy(0,600);
 while (1){
@@ -603,7 +617,8 @@ clearmouseclick(WM_LBUTTONDOWN);
     delay(1);
     }
 
-bgiout<<"поставьте 3 2-х палубника";
+  settextstyle(8,0,4);
+bgiout<<"поставьте 3 2-х палубника                         " ;
 outstreamxy(0,600);
 n=3;
 first=1;
@@ -647,7 +662,7 @@ first=1;
 second=0;
 third=0; 
 //******************************************************4 ОДНОПАЛУБНИКА**********************************************************
-bgiout<<"Поставьте 4 однопалубника";
+bgiout<<"Поставьте 4 однопалубника           ";
 outstreamxy(0,600);
 while (n>0){
     tempx=(int)((float)mousex()/40);
@@ -696,16 +711,19 @@ second=0;
 third=0;
   initwindow(800,800,"Place your boats, player 2");
   doagain2:
-        setcolor(COLOR(255,255,255));
+  setcolor(COLOR(255,255,255));
   cleardevice();
   pprint();
-                setfillstyle(1,COLOR(0,0,0));
-bar(460,0,800,800);
-        setfillstyle(1,COLOR(255,0,0));
-bar(600,0,800,100);  
+  setfillstyle(1,COLOR(0,0,0));
+  first=1;
+  second=0;
+  third=0;
+  bar(460,0,800,550);
+  setfillstyle(1,COLOR(255,0,0));
+  bar(600,0,800,100);  
   settextstyle(8,0,4);
   setcolor(COLOR(0,255,0));
-  bgiout<<"Поставь 4-х палубник";
+  bgiout<<"Поставь 4-х палубник                  ";
   outstreamxy(0,600);
   
   setcolor(COLOR(0,255,0));
@@ -789,7 +807,8 @@ bar(460,0,800,800);
       clearmouseclick(WM_LBUTTONDOWN);
       delay(10);
 }
-bgiout<<"Поставьте два 3-х палубника";
+  settextstyle(8,0,4);
+bgiout<<"Поставьте два 3-х палубника                         ";
 outstreamxy(0,600);
 n=1;
 
@@ -848,7 +867,8 @@ n=1;
 first=1;
 setfillstyle(1,COLOR(0,255,0));
 dir=0;
-bgiout<<"поставьте 3-х палубник";
+  settextstyle(8,0,4);
+bgiout<<"поставьте 3-х палубник                                   ";
 outstreamxy(0,600);
 while (1){
               if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>600&&mousex()<800&&mousey()>0&&mousey()<100){
@@ -899,7 +919,8 @@ clearmouseclick(WM_LBUTTONDOWN);
     delay(1);
     }
 
-bgiout<<"поставьте 3 2-х палубника";
+  settextstyle(8,0,4);
+bgiout<<"поставьте 3 2-х палубника                                 ";
 outstreamxy(0,600);
 n=3;
 first=1;
@@ -941,7 +962,8 @@ n=4;
 first=1;
 second=0;
 third=0;
-bgiout<<"Поставьте 4 однопалубника";
+  settextstyle(8,0,4);
+bgiout<<"Поставьте 4 однопалубника                                ";
 outstreamxy(0,600);
 while (n>0){
               if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>600&&mousex()<800&&mousey()>0&&mousey()<100){
@@ -989,10 +1011,16 @@ while (n>0){
 //*******************************************БОТ РАССТАВЛЯЕТ СВОИ КОРАБЛИ: ********************************************************
 
 
-if (bot==1) random(p2);
+if (bot==1){ 
+    random(p2);
+}
 
 //********************************************БОТ РАССТАВИЛ СВОИ КОРАБЛИ!******************************************************* :D
 
+    cleardevice();
+    settextstyle(8,0,4);
+    outtextxy(100,100,"Preapare yourself...");
+    delay(1500);
 
 
 
@@ -1008,8 +1036,14 @@ if (bot==1) random(p2);
 
 startgame2:
 //***************************************************START IGRI*****************************************************************
-settextstyle(8,0,16);
 
+for (int z=0;z<12;z++)
+    for (int l=0;l<12;l++){
+        p1[z][0]=-1;
+        p1[0][l]=-1;
+        }
+    
+settextstyle(8,0,16);
 closegraph();
 
     initwindow(1000,500,"Naval Battle!");
@@ -1024,6 +1058,9 @@ closegraph();
     int fixedx, fixedy;
     
     int temp,shootx,shooty;
+    
+shootx=3;
+shooty=3;
     while(1){
         
 if (turn==1){ 
@@ -1434,16 +1471,18 @@ if (turn==1){
     
     
 //*****************************************************************ХОДИТ БОТ********************************************************************************
+
+printf("%p %p",&tflag,&flag);
             if (bot==1&&turn==2){ 
             
-           delay(2000);
+          delay(1000);
            notworking:
-
           shootx=rand()%10+1;
           shooty=rand()%10+1;
             if (p1[shootx][shooty]<0) goto notworking;
-/*temp=rand()%100;
-if (temp>90){
+            /*
+temp=rand()%100;
+if (temp>80){
     for (int z=0;z<12;z++)
         for (int l=0;l<12;l++)
         if (p1[z][l]>1){ fixedx=z; fixedy=l;}
@@ -1454,52 +1493,53 @@ if (temp>90){
 
   */
 regen:
+    
     temp2y=rand()%4+1;
     printf("%i\n,",flag);
-    if (flag==1){
-        if (temp/10>1) {
-         if (temp2y==1){ shootx=fixedx-1;shooty=fixedy;    }
-         if (temp2y==2){ shootx=fixedx+1;shooty=fixedy;    }
-         if (temp2y==3){ shootx=fixedx;shooty=fixedy-1;    }
-         if (temp2y==4){ shootx=fixedx;shooty=fixedy+1;    }
-         if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}
-        }
-                if (flag==2) {
-                if (temp2y==1&&p1[fixedx-1][fixedy]<-2){shootx=fixedx-1;shooty=fixedy;}
-                if (temp2y==2&&p1[fixedx+1][fixedy]<-2){shootx=fixedx+1;shooty=fixedy;}
-                if (temp2y==3&&p1[fixedx][fixedy-1]<-2){shootx=fixedx;shooty=fixedy-1;}
-                if (temp2y==4&&p1[fixedx][fixedy+1]<-2){shootx=fixedx;shooty=fixedy+1;}
-                
-         if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}
-        }
-    if (flag==3){
-        if (p1[fixedx-1][fixedy]==-p1[fixedx][fixedy]){
-        if (p1[fixedx-2][fixedy]>0&&rand()%2) shootx=fixedx-2;
-        else shootx=fixedx+1;
-        }
-        
-        if (p1[fixedx+1][fixedy]==-p1[fixedx][fixedy]){
-        if (p1[fixedx-1][fixedy]>0&&rand()%2) shootx=fixedx-1;
-        else shootx=fixedx+2;
-        }
-        if (p1[fixedx][fixedy+1]==-p1[fixedx][fixedy]){
-        if (p1[fixedx][fixedy]>0&&rand()%2) shootx=fixedx-1;
-        else shootx=fixedx+2;
-        
-        
-        }
-        if (p1[fixedx][fixedy-1]==-p1[fixedx][fixedy]){
-        
-        
-        }
-        
+    if (flag==2){
+         if (temp2y==1&&fixedx-1>0){ shootx=fixedx-1;shooty=fixedy;    }
+         if (temp2y==2&&fixedx+1<11){ shootx=fixedx+1;shooty=fixedy;    }
+         if (temp2y==3&&fixedy-1>0){ shootx=fixedx;shooty=fixedy-1;    }
+         if (temp2y==4&&fixedy+1<11){ shootx=fixedx;shooty=fixedy+1;    }
+         if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}   
     }
-        
-        
-}
     
-    
+    if (flag==3){
+        if (p1[tfx+1][tfy]==-p1[tfx][tfy]&&p1[tfx-1][tfy]==-p1[tfx][tfy])
         
+        if (tflag==0){
+                 if (temp2y==1&&fixedx-1>0){ shootx=fixedx-1;shooty=fixedy;    }
+         if (temp2y==2&&fixedx+1<11){ shootx=fixedx+1;shooty=fixedy;    }
+         if (temp2y==3&&fixedy-1>0){ shootx=fixedx;shooty=fixedy-1;    }
+         if (temp2y==4&&fixedy+1<11){ shootx=fixedx;shooty=fixedy+1;    }
+        }
+        if (tflag==1&&dir==1){
+         if (temp2y==1&&fixedx-1>0){ shootx=tfx-1;shooty=tfy;    }
+         if (temp2y==2&&fixedx+1<11){ shootx=tfx+1;shooty=tfy;    }
+         if (temp2y==3&&fixedx-2>0){ shootx=tfx-2;shooty=tfy;    }
+         if (temp2y==4&&fixedx+2<11){ shootx=tfx+2;shooty=tfy;    }
+            }    
+                
+        if (tflag==1&&dir==2){
+         if (temp2y==1&&fixedy-1>0){ shootx=tfx;shooty=tfy+1;    }
+         if (temp2y==2&&fixedy+1<11){ shootx=tfx;shooty=tfy-1;    }
+         if (temp2y==3&&fixedy-2>0){ shootx=tfx;shooty=tfy+2;    }
+         if (temp2y==4&&fixedy+2<11){ shootx=tfx;shooty=tfy-2;    }
+            
+            }
+        if (tflag==2){ tflag=0; flag=0;}
+   if (p1[shootx][shooty]>0){ 
+    tflag++;
+    if (p1[shootx-1][shooty]==-p1[shootx][shooty]||p1[shootx+1][shooty]==-p1[shootx][shooty]) dir=1;
+    if (p1[shootx][shooty-1]==-p1[shootx][shooty]||p1[shootx][shooty+1]==-p1[shootx][shooty]) dir=2;
+    
+   }//dir==1 - gorizont; dir==2 - vertikal
+        }               
+   
+   
+   
+    if (p1[shootx][shooty]<0) goto notworking;
+    
     skip:
             tempx=shootx;
             tempy=shooty;
@@ -1518,35 +1558,39 @@ regen:
                     }
                 if((p1[tempx][tempy])/10==2) { //****************обруч вокруг 2-х палубника
                     setfillstyle(1,COLOR(200,200,200));
-                    if (p1[tempx-1][tempy]==-p1[tempx][tempy]) 
-                    for (int z=tempx-2;z<tempx+2;z++) 
-                        for (int l=tempy-1;l<tempy+2;l++){ 
-                        if (p1[z][l]==0)p1[z][l]=-1; 
-                    
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1)floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    }
-                    if(p1[tempx+1][tempy]==-p1[temp2x][tempy]){ 
-                        for (int z=tempx-1;z<tempx+3;z++)
-                            for (int l=tempy-1;l<tempy+2;l++){
-                                if (p1[z][l]==0)p1[z][l]=-1;
-                            
-                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
+                                  
+                        if (p1[tempx][tempy]==-p1[tempx+1][tempy]){
+                            for (int z=tempx-1;z<tempx+3;z++)
+                                for (int l=tempy-1;l<tempy+2;l++){
+                                if (p1[z][l]==0) p1[z][l]=-1;
+                                if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));
                                 }
-                    }
-                    if(p1[tempx][tempy-1]==-p1[tempx][tempy])
-                        for(int z=tempx-1;z<tempx+2;z++)
-                            for(int l=tempy-2;l<tempy+2;l++){
-                                if (p1[z][l]==0)p1[z][l]=-1;
+                            }
                             
-                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
+                            if (p1[tempx][tempy]==-p1[tempx-1][tempy]){
+                                for (int z=tempx-2;z<tempx+2;z++)
+                                    for(int l=tempy-1;l<tempy+2;l++){
+                                    if (p1[z][l]==0) p1[z][l]=-1;
+                                    if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));    
+                                        
+                                    }
                                 }
-                    if(p1[tempx][tempy+1]==-p1[tempx][tempy])
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-1;l<tempy+3;l++){
-                         if (p1[z][l]==0)p1[z][l]=-1;
-                              
-                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
+                            if (p1[tempx][tempy]==-p1[tempx][tempy+1]){
+                                for (int z=tempx-1;z<tempx+2;z++)
+                                    for(int l=tempy-1;l<tempy+3;l++){
+                                    if (p1[z][l]==0) p1[z][l]=-1;
+                                    if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));    
+                                        
+                                    }
+                                }
+                            if (p1[tempx][tempy]==-p1[tempx][tempy-1]){
+                                for (int z=tempx-1;z<tempx+2;z++)
+                                    for(int l=tempy-2;l<tempy+2;l++){
+                                    if (p1[z][l]==0) p1[z][l]=-1;
+                                    if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));    
+                                        
+                                    }
+                                }
                    
             }
             if(p1[tempx][tempy]/10==3){ //************************мимо вокруг 3-х палубника  
@@ -1676,15 +1720,21 @@ regen:
             fixedx=shootx;
             fixedy=shooty;
             numhit2++;
+            if (flag==0)
+            {
+                tfx=shootx;
+                tfy=shooty;
+                }
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));    
-            if (p1[shootx][shooty]/10==2) flag=1;
-            if (p1[shootx][shooty]/10==3) flag++;
-            if (p1[shootx][shooty]/10==4) printf("ploxo");
+            if (p1[shootx][shooty]/10>1){ flag=p1[shootx][shooty]/10;}
+            
             p1[shootx][shooty]=-p1[shootx][shooty];
         }
         
+            
+            
             if (p1[shootx][shooty]==0){
-            turnprint();
+            //turnprint();
             setfillstyle(1,COLOR(200,200,200));
             p1[shootx][shooty]=-1;
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));
@@ -1701,6 +1751,7 @@ cleardevice();
 }
 if (numhit2==20) { 
     if(bot==0){ 
+ settextstyle(7,0,10);
 cleardevice();
     outtextxy(50,50,"PLAYER 2");
     outtextxy(300,250,"WIN");
@@ -1708,6 +1759,7 @@ cleardevice();
         }
     else {
 cleardevice();
+ settextstyle(7,0,10);
     outtextxy(150,50,"**BOT**");
     outtextxy(300,250,"WIN");
         break;
