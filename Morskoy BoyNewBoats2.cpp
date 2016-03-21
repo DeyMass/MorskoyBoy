@@ -335,9 +335,7 @@ if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<390&&mousey()>100&&mouse
 
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<335&&mousey()>200&&mousey()<235){
     bot=1;
-    tfx=1;
-    tfy=1;
-    tflag=1;
+    
     closegraph();
     initwindow(400,400);
     settextstyle(1,0,5);
@@ -1043,10 +1041,9 @@ for (int z=0;z<12;z++)
         p1[0][l]=-1;
         }
     
-settextstyle(8,0,16);
 closegraph();
 
-    initwindow(1000,500,"Naval Battle!");
+    initwindow(1000,900,"Naval Battle!");
     turnprint();
     pprint();
     setfillstyle(1,COLOR(0,255,0));
@@ -1472,17 +1469,17 @@ if (turn==1){
     
 //*****************************************************************ундхр анр********************************************************************************
 
-printf("%p %p",&tflag,&flag);
+
             if (bot==1&&turn==2){ 
             
-          delay(1000);
+          delay(200);
            notworking:
           shootx=rand()%10+1;
           shooty=rand()%10+1;
             if (p1[shootx][shooty]<0) goto notworking;
-            /*
+            
 temp=rand()%100;
-if (temp>80){
+if (temp>70){
     for (int z=0;z<12;z++)
         for (int l=0;l<12;l++)
         if (p1[z][l]>1){ fixedx=z; fixedy=l;}
@@ -1491,11 +1488,10 @@ if (temp>80){
     if (flag){ shootx=fixedx; shooty=fixedy;}
     flag=0;
 
-  */
+  
 regen:
-    
+   /* 
     temp2y=rand()%4+1;
-    printf("%i\n,",flag);
     if (flag==2){
          if (temp2y==1&&fixedx-1>0){ shootx=fixedx-1;shooty=fixedy;    }
          if (temp2y==2&&fixedx+1<11){ shootx=fixedx+1;shooty=fixedy;    }
@@ -1530,12 +1526,15 @@ regen:
         if (tflag==2){ tflag=0; flag=0;}
    if (p1[shootx][shooty]>0){ 
     tflag++;
-    if (p1[shootx-1][shooty]==-p1[shootx][shooty]||p1[shootx+1][shooty]==-p1[shootx][shooty]) dir=1;
-    if (p1[shootx][shooty-1]==-p1[shootx][shooty]||p1[shootx][shooty+1]==-p1[shootx][shooty]) dir=2;
+    }
+    if (p1[fixedx-1][fixedy]==-p1[fixedx][fixedy]||p1[fixedx+1][shooty]==-p1[fixedx][fixedy]) dir=1;
+    if (p1[fixedx][fixedy-1]==-p1[fixedx][fixedy]||p1[fixedy][fixedy+1]==-p1[fixedy][fixedy]) dir=2;
     
-   }//dir==1 - gorizont; dir==2 - vertikal
+   //dir==1 - gorizont; dir==2 - vertikal
         }               
    
+   */
+
    
    
     if (p1[shootx][shooty]<0) goto notworking;
@@ -1725,8 +1724,9 @@ regen:
                 tfx=shootx;
                 tfy=shooty;
                 }
+                
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));    
-            if (p1[shootx][shooty]/10>1){ flag=p1[shootx][shooty]/10;}
+            if (p1[shootx][shooty]/10>1){ flag=p1[shootx][shooty]/10; }
             
             p1[shootx][shooty]=-p1[shootx][shooty];
         }
@@ -1734,7 +1734,7 @@ regen:
             
             
             if (p1[shootx][shooty]==0){
-            //turnprint();
+            turnprint();
             setfillstyle(1,COLOR(200,200,200));
             p1[shootx][shooty]=-1;
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));
