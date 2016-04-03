@@ -5,8 +5,175 @@
 //Морской бой!
 using namespace std;
 int turn=2;
-typedef int* rown ;
 
+void opisCircle(int p1[12][12],int tempx,int tempy,int flag=0){
+     int magic=0;
+     setfillstyle(1,COLOR(200,200,200));
+     if (flag==1) magic=560;
+                        
+                if((p1[tempx][tempy])/10==1) { //******************описывать кружок для 1 палубника
+                    
+                    for (int z=tempx-1;z<tempx+2;z++)
+                        for (int l=tempy-1;l<tempy+2;l++){
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]<1) {
+                        p1[z][l]=-1;
+                        delay(2);
+                       if (p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                }
+                    }
+                    }
+                if((p1[tempx][tempy])/10==2) { //****************описывать кружок для 2 палубника
+                    if (p1[tempx-1][tempy]==-p1[tempx][tempy]) 
+                    for (int z=tempx-2;z<tempx+2;z++) 
+                        for (int l=tempy-1;l<tempy+2;l++){ 
+                        if (p1[z][l]==0)p1[z][l]=-1; 
+                        delay(2); 
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1)floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                    }
+                    if(p1[tempx+1][tempy]==-p1[tempx][tempy]){ 
+                        for (int z=tempx-1;z<tempx+3;z++)
+                            for (int l=tempy-1;l<tempy+2;l++){
+                                if (p1[z][l]==0)p1[z][l]=-1;
+                                delay(2);
+                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                                }
+                    }
+                    if(p1[tempx][tempy-1]==-p1[tempx][tempy])
+                        for(int z=tempx-1;z<tempx+2;z++)
+                            for(int l=tempy-2;l<tempy+2;l++){
+                                if (p1[z][l]==0)p1[z][l]=-1;
+                                delay(2);
+                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                                }
+                    if(p1[tempx][tempy+1]==-p1[tempx][tempy])
+                        for (int z=tempx-1;z<tempx+2;z++)
+                            for (int l=tempy-1;l<tempy+3;l++){
+                         if (p1[z][l]==0)p1[z][l]=-1;
+                                delay(2);
+                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        }
+            }
+            if(p1[tempx][tempy]/10==3){ //************************Описывать кружок для 3 палубника    
+                if (p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]){
+                for (int z=tempx-2;z<tempx+3;z++)
+                    for (int l=tempy-1;l<tempy+2;l++){
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&l>0&&l<11&&z<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                    
+                    }
+        }
+                        if (p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy]){
+                for (int z=tempx-1;z<tempx+4;z++)
+                    for (int l=tempy-1;l<tempy+2;l++){
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                    
+                    }
+        }
+                        if (p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy]){
+                 
+                    for (int z=tempx-3;z<tempx+2;z++)
+                    for (int l=tempy-1;l<tempy+2;l++){
+                   
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                    
+                    }
+        }
+                        if (p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy]){
+                        for (int z=tempx-1;z<tempx+2;z++)
+                            for (int l=tempy-2;l<tempy+3;l++){
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                }
+    }    
+                        if(p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+2]==-p1[tempx][tempy]){        
+                        for (int z=tempx-1;z<tempx+2;z++)
+                            for (int l=tempy-1;l<tempy+4;l++){
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                }
+            }    
+                                    if(p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]){        
+                        for (int z=tempx-1;z<tempx+2;z++)
+                            for (int l=tempy-3;l<tempy+2;l++){
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                }
+            } 
+            
+            
+        }
+        
+        if (p1[tempx][tempy]/10==4){ //Обруч вокруг 4-хпалубника
+            if (p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
+             for (int z=tempx-3;z<tempx+3;z++)
+                for (int l=tempy-1;l<tempy+2;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                    }
+           if (p1[tempx-3][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
+                for (int z=tempx-4;z<tempx+2;z++)
+                    for (int l=tempy-1;l<tempy+2;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        }
+                        
+            if (p1[tempx+2][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy])
+                 for (int z=tempx-2;z<tempx+4;z++)
+                for (int l=tempy-1;l<tempy+2;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                    }
+           if (p1[tempx+3][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy])
+                for (int z=tempx-1;z<tempx+5;z++)
+                    for (int l=tempy-1;l<tempy+2;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        }  
+                        //ВЕРТИКАЛЬНЫЕ ЧЕТЫРЁХПАЛУБНИКИ
+               if (p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]&&p1[tempx][tempy-3]==-p1[tempx][tempy])
+                for (int z=tempx-1;z<tempx+2;z++)
+                    for (int l=tempy-4;l<tempy+2;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        
+                        }
+               if (p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy])
+                for (int z=tempx-1;z<tempx+2;z++)
+                    for (int l=tempy-3;l<tempy+3;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        
+                        }
+               if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy])
+                for (int z=tempx-1;z<tempx+2;z++)
+                    for (int l=tempy-2;l<tempy+4;l++){
+                     if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        }
+              if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+3]==-p1[tempx][tempy])
+                  for (int z=tempx-1;z<tempx+2;z++)
+                    for (int l=tempy-1;l<tempy+5;l++){
+                        if (p1[z][l]==0)p1[z][l]=-1;
+                        delay(2);
+                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1+magic,l*40+1,COLOR(255,255,255));
+                        }
+                        }       
+     }
 
 
 void random(int p2[12][12]){
@@ -278,11 +445,7 @@ outtext("I");
 moveto(961,t);
 outtext("J");
     }
-
-
-
 using namespace std;
-
 int main(){
 int tflag=0;
 int tfx=0,tfy=0;
@@ -298,12 +461,10 @@ p2[i][j]=0;
 }
 initwindow(400,400);
 int bot,menu=0;//100 100 310 155
-
 setcolor(COLOR(231,200,231));
 settextstyle(4,0,7);
 outtextxy(100,100,"Start");
 outtextxy(100,250,"Exit");
-
 while(1){  
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>100&&mousex()<310&&mousey()>100&&mousey()<175){
 closegraph();
@@ -315,7 +476,6 @@ outtextxy(50,200,"Player vs Bot");
 outtextxy(50,300,"Main menu");
 menu=1;
 clearmouseclick(WM_LBUTTONDOWN);
-
 }
 while(menu==1){
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<390&&mousey()>100&&mousey()<135){
@@ -335,7 +495,6 @@ if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<390&&mousey()>100&&mouse
 
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<335&&mousey()>200&&mousey()<235){
     bot=1;
-    
     closegraph();
     initwindow(400,400);
     settextstyle(1,0,5);
@@ -348,7 +507,6 @@ if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<335&&mousey()>200&&mouse
     menu=-1;
     break;
     }
-    
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>50&&mousex()<290&&mousey()>300&&mousey()<330){
     closegraph();
     initwindow(400,400);
@@ -358,12 +516,9 @@ outtextxy(100,100,"Start");
 outtextxy(100,250,"Exit");
     menu=0;
     }
-    
-    
 clearmouseclick(WM_LBUTTONDOWN);    
     delay(10);
 }
-
 if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>45&&mousex()<331&&mousey()>250&&mousey()<323){
     cleardevice();
     settextstyle(1,0,4);
@@ -378,25 +533,16 @@ goto end;
 clearmouseclick(WM_LBUTTONDOWN);
 if (menu==-1){ break; closegraph();}
 }
-
-
-
-
-
-
-
-
-
-
  closegraph();   
-
   initwindow(700,800,"Place your boats, player 1");
 doagain:
-    
     setcolor(COLOR(255,255,255));
     cleardevice();
   pprint();
-  
+  for (int z=0;z<12;z++){
+      p1[z][0]=-1;
+      p1[0][z]=-1;
+}
 setfillstyle(1,COLOR(0,0,0));
 bar(460,0,700,550);
   settextstyle(8,0,4);
@@ -453,7 +599,7 @@ bar(460,0,700,800);
     tempy=(int)((float)mousey()/40);
          if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
        if (first){
-            if (p1[tempx][tempy]<1&&mousex()%40!=0&&mousey()%40!=0){
+            if (p1[tempx][tempy]==0&&p1[tempx][tempy]<1&&mousex()%40!=0&&mousey()%40!=0){
             p1[tempx][tempy]=41;
           floodfill(mousex(),mousey(),COLOR(255,255,255));    
           second=1;
@@ -507,6 +653,7 @@ first=1;
 setfillstyle(1,COLOR(0,255,0));
 dir=0;
 while (1){
+          printf("%i %i\n",mousex(),mousey());
      if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>600&&mousex()<800&&mousey()>0&&mousey()<100){
 
                 for (int z=0;z<12;z++)
@@ -519,7 +666,8 @@ while (1){
             
     tempx=(int)((float)mousex()/40);
     tempy=(int)((float)mousey()/40);
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+    if (p1[tempx][tempy]==0&&ismouseclick(WM_LBUTTONDOWN)&&mousex()<440&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+
         if (first==1&&p1[tempx][tempy]<1&&p1[tempx][tempy+1]<1&&p1[tempx+1][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy]<1&&p1[tempx][tempy-1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
             p1[tempx][tempy]=31;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -576,7 +724,7 @@ while (1){
             }
     tempx=(int)((float)mousex()/40);
     tempy=(int)((float)mousey()/40);
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+    if (p1[tempx][tempy]==0&&mousex()<440&&ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
         if (first==1&&p1[tempx][tempy]<1&&p1[tempx][tempy+1]<1&&p1[tempx+1][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy]<1&&p1[tempx][tempy-1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
             p1[tempx][tempy]=32;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -612,7 +760,7 @@ while (1){
     if (n==0) break;
     
 clearmouseclick(WM_LBUTTONDOWN);
-    delay(1);
+    delay(10);
     }
 
   settextstyle(8,0,4);
@@ -636,7 +784,7 @@ while(n>0){
             goto doagain;
             }
     
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+    if (p1[tempx][tempy]==0&&ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()<440&&mousex()%40!=0&&mousey()%40!=0){
         if (first==1&&p1[tempx][tempy]<1&&p1[tempx][tempy+1]<1&&p1[tempx+1][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy]<1&&p1[tempx][tempy-1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
             p1[tempx][tempy]=20+n;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -651,7 +799,6 @@ while(n>0){
             first=1;
             }
     }
-    
     clearmouseclick(WM_LBUTTONDOWN);    
     delay(5);
 }
@@ -675,7 +822,7 @@ while (n>0){
             goto doagain;
             }
     
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+    if (p1[tempx][tempy]==0&&ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
         if (p1[tempx][tempy]<1&&p1[tempx][tempy+1]<1&&p1[tempx+1][tempy]<1&&p1[tempx+1][tempy+1]<1&&p1[tempx-1][tempy]<1&&p1[tempx][tempy-1]<1&&p1[tempx-1][tempy-1]<1&&p1[tempx-1][tempy+1]<1&&p1[tempx+1][tempy-1]<1){
             p1[tempx][tempy]=10+n;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -685,24 +832,15 @@ while (n>0){
     clearmouseclick(WM_LBUTTONDOWN);
     delay(5);
 }
-
-
-
-
-
 startgame:
-
 if(bot==0){
 cleardevice();
 settextstyle(1,0,7);
 outtextxy(100,50,"Player2");
 outtextxy(100,250,"Your");
 outtextxy(100,450,"Turn");
-
-
 delay(2000);
 closegraph();
-
 dir=0;
 first=1;
 second=0;
@@ -723,7 +861,6 @@ third=0;
   setcolor(COLOR(0,255,0));
   bgiout<<"Поставь 4-х палубник                  ";
   outstreamxy(0,600);
-  
   setcolor(COLOR(0,255,0));
   settextstyle(1,0,2);
   outtextxy(550,400,"PLACE");
@@ -824,7 +961,10 @@ while (1){
             }
     tempx=(int)((float)mousex()/40);
     tempy=(int)((float)mousey()/40);
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()>40&&mousey()<440&&mousex()%40!=0&&mousey()%40!=0){
+    if (ismouseclick(WM_LBUTTONDOWN)&&
+    mousex()>40&&mousey()>40&&mousey()<440&&mousex<440
+    &&mousex()%40!=0
+    &&mousey()%40!=0){
         if (first==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
             p2[tempx][tempy]=31;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -878,7 +1018,9 @@ while (1){
             }
     tempx=(int)((float)mousex()/40);
     tempy=(int)((float)mousey()/40);
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()<440&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()<440&&mousex<440&&mousey()>40&&
+    mousex()%40!=0&&
+    mousey()%40!=0){
         if (first==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
             p2[tempx][tempy]=32;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -937,7 +1079,7 @@ while(n>0){
     tempx=(int)((float)mousex()/40);
     tempy=(int)((float)mousey()/40);
     
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()<440&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex<440&&mousey()<440&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
         if (first==1&&p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
             p2[tempx][tempy]=20+n;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -975,7 +1117,7 @@ while (n>0){
     tempx=(int)((float)mousex()/40);
     tempy=(int)((float)mousey()/40);
     
-    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousey()<440&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
+    if (ismouseclick(WM_LBUTTONDOWN)&&mousex()>40&&mousex<440&&mousey()<440&&mousey()>40&&mousex()%40!=0&&mousey()%40!=0){
         if (p2[tempx][tempy]<1&&p2[tempx][tempy+1]<1&&p2[tempx+1][tempy]<1&&p2[tempx+1][tempy+1]<1&&p2[tempx-1][tempy]<1&&p2[tempx][tempy-1]<1&&p2[tempx-1][tempy-1]<1&&p2[tempx-1][tempy+1]<1&&p2[tempx+1][tempy-1]<1){
             p2[tempx][tempy]=10+n;
             floodfill(mousex(),mousey(),COLOR(255,255,255));
@@ -984,63 +1126,24 @@ while (n>0){
     }
     clearmouseclick(WM_LBUTTONDOWN);
     delay(5);
-}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }}
 //*******************************************БОТ РАССТАВЛЯЕТ СВОИ КОРАБЛИ: ********************************************************
-
-
 if (bot==1){ 
     random(p2);
 }
-
 //********************************************БОТ РАССТАВИЛ СВОИ КОРАБЛИ!******************************************************* :D
 
     cleardevice();
     settextstyle(8,0,4);
     outtextxy(100,100,"Preapare yourself...");
     delay(1500);
-
-
-
-
-
-
-
-
-
-
-
-
-
 startgame2:
-//***************************************************START IGRI*****************************************************************
-
+//***************************************************START IGRI****************************************************************
 for (int z=0;z<12;z++)
     for (int l=0;l<12;l++){
         p1[z][0]=-1;
         p1[0][l]=-1;
         }
-    
 closegraph();
 
     initwindow(1000,900,"Naval Battle!");
@@ -1053,11 +1156,7 @@ closegraph();
         if (p1[z][l]>0) floodfill(z*40+1,l*40+1,COLOR(255,255,255));            
     }
     int fixedx, fixedy;
-    
     int temp,shootx,shooty;
-    
-shootx=3;
-shooty=3;
     while(1){
         
 if (turn==1){ 
@@ -1068,191 +1167,20 @@ if (turn==1){
    printarrow1(COLOR(0,0,0));
    printarrow2(COLOR(0,255,0));
 }
-
         tempx=(int)((float)mousex()/40);
         tempy=(int)((float)mousey()/40);
         temp2x=(int)(((float)mousex()-560)/40);
-
-
     //***************************************************ХОДИТ ПЕРВЫЙ ИГРОК************************************************************
     if (turn==1){
+    tempx=mousex()/40;
+    tempy=mousey()/40;
         if (ismouseclick(WM_LBUTTONDOWN)&&mousex()%40!=0&&mousey()%40!=0&&mousex()>600&&mousex()<1000&&mousey()>40&&mousey()<440){
             if (p2[temp2x][tempy]>1) {
-                        
-                if((p2[temp2x][tempy])/10==1) { //******************описывать кружок для 1 палубника
-                    setfillstyle(1,COLOR(200,200,200));
-                    for (int z=temp2x-1;z<temp2x+2;z++)
-                        for (int l=tempy-1;l<tempy+2;l++){
-                        if (z>0&&l>0&&l<11&&p2[z][l]<1) {
-                        p2[z][l]=-1;
-                        delay(2);
-                       if (p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                }
-                    }
-                    }
-                if((p2[temp2x][tempy])/10==2) { //****************описывать кружок для 2 палубника
-                    setfillstyle(1,COLOR(200,200,200));
-                    if (p2[temp2x-1][tempy]==-p2[temp2x][tempy]) 
-                    for (int z=temp2x-2;z<temp2x+2;z++) 
-                        for (int l=tempy-1;l<tempy+2;l++){ 
-                        if (p2[z][l]==0)p2[z][l]=-1; 
-                        delay(2); 
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1)floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                    }
-                    if(p2[temp2x+1][tempy]==-p2[temp2x][tempy]){ 
-                        for (int z=temp2x-1;z<temp2x+3;z++)
-                            for (int l=tempy-1;l<tempy+2;l++){
-                                if (p2[z][l]==0)p2[z][l]=-1;
-                                delay(2);
-                                if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                                }
-                    }
-                    if(p2[temp2x][tempy-1]==-p2[temp2x][tempy])
-                        for(int z=temp2x-1;z<temp2x+2;z++)
-                            for(int l=tempy-2;l<tempy+2;l++){
-                                if (p2[z][l]==0)p2[z][l]=-1;
-                                delay(2);
-                                if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                                }
-                    if(p2[temp2x][tempy+1]==-p2[temp2x][tempy])
-                        for (int z=temp2x-1;z<temp2x+2;z++)
-                            for (int l=tempy-1;l<tempy+3;l++){
-                         if (p2[z][l]==0)p2[z][l]=-1;
-                                delay(2);
-                                if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        }
-                   
-            }
-            if(p2[temp2x][tempy]/10==3){ //************************Описывать кружок для 3 палубника    
-            setfillstyle(1,COLOR(200,200,200));
-            
-                if (p2[temp2x-1][tempy]==-p2[temp2x][tempy]&&p2[temp2x+1][tempy]==-p2[temp2x][tempy]){
-                for (int z=temp2x-2;z<temp2x+3;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p2[temp2x+1][tempy]==-p2[temp2x][tempy]&&p2[temp2x+2][tempy]==-p2[temp2x][tempy]){
-                for (int z=temp2x-1;z<temp2x+4;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p2[temp2x-1][tempy]==-p2[temp2x][tempy]&&p2[temp2x-2][tempy]==-p2[temp2x][tempy]){
-                 
-                    for (int z=temp2x-3;z<temp2x+2;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                   
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p2[temp2x][tempy+1]==-p2[temp2x][tempy]&&p2[temp2x][tempy-1]==-p2[temp2x][tempy]){
-                        for (int z=temp2x-1;z<temp2x+2;z++)
-                            for (int l=tempy-2;l<tempy+3;l++){
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                }
-    }    
-                        if(p2[temp2x][tempy+1]==-p2[temp2x][tempy]&&p2[temp2x][tempy+2]==-p2[temp2x][tempy]){        
-                        for (int z=temp2x-1;z<temp2x+2;z++)
-                            for (int l=tempy-1;l<tempy+4;l++){
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                }
-            }    
-                                    if(p2[temp2x][tempy-1]==-p2[temp2x][tempy]&&p2[temp2x][tempy-2]==-p2[temp2x][tempy]){        
-                        for (int z=temp2x-1;z<temp2x+2;z++)
-                            for (int l=tempy-3;l<tempy+2;l++){
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                }
-            } 
-            
-            
-        }
-        
-        if (p2[temp2x][tempy]/10==4){ //Обруч вокруг 4-хпалубника
-            setfillstyle(1,COLOR(200,200,200));
-            if (p2[temp2x+1][tempy]==-p2[temp2x][tempy]&&p2[temp2x-1][tempy]==-p2[temp2x][tempy]&&p2[temp2x-2][tempy]==-p2[temp2x][tempy])
-             for (int z=temp2x-3;z<temp2x+3;z++)
-                for (int l=tempy-1;l<tempy+2;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                    }
-           if (p2[temp2x-3][tempy]==-p2[temp2x][tempy]&&p2[temp2x-1][tempy]==-p2[temp2x][tempy]&&p2[temp2x-2][tempy]==-p2[temp2x][tempy])
-                for (int z=temp2x-4;z<temp2x+2;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        }
-                        
-            if (p2[temp2x+2][tempy]==-p2[temp2x][tempy]&&p2[temp2x+1][tempy]==-p2[temp2x][tempy]&&p2[temp2x-1][tempy]==-p2[temp2x][tempy])
-                 for (int z=temp2x-2;z<temp2x+4;z++)
-                for (int l=tempy-1;l<tempy+2;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                    }
-           if (p2[temp2x+3][tempy]==-p2[temp2x][tempy]&&p2[temp2x+1][tempy]==-p2[temp2x][tempy]&&p2[temp2x+2][tempy]==-p2[temp2x][tempy])
-                for (int z=temp2x-1;z<temp2x+5;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        }  
-                        //ВЕРТИКАЛЬНЫЕ ЧЕТЫРЁХПАЛУБНИКИ
-               if (p2[temp2x][tempy-1]==-p2[temp2x][tempy]&&p2[temp2x][tempy-2]==-p2[temp2x][tempy]&&p2[temp2x][tempy-3]==-p2[temp2x][tempy])
-                for (int z=temp2x-1;z<temp2x+2;z++)
-                    for (int l=tempy-4;l<tempy+2;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        
-                        }
-               if (p2[temp2x][tempy+1]==-p2[temp2x][tempy]&&p2[temp2x][tempy-1]==-p2[temp2x][tempy]&&p2[temp2x][tempy-2]==-p2[temp2x][tempy])
-                for (int z=temp2x-1;z<temp2x+2;z++)
-                    for (int l=tempy-3;l<tempy+3;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        
-                        }
-               if (p2[temp2x][tempy+2]==-p2[temp2x][tempy]&&p2[temp2x][tempy+1]==-p2[temp2x][tempy]&&p2[temp2x][tempy-1]==-p2[temp2x][tempy])
-                for (int z=temp2x-1;z<temp2x+2;z++)
-                    for (int l=tempy-2;l<tempy+4;l++){
-                     if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        }
-              if (p2[temp2x][tempy+2]==-p2[temp2x][tempy]&&p2[temp2x][tempy+1]==-p2[temp2x][tempy]&&p2[temp2x][tempy+3]==-p2[temp2x][tempy])
-                  for (int z=temp2x-1;z<temp2x+2;z++)
-                    for (int l=tempy-1;l<tempy+5;l++){
-                        if (p2[z][l]==0)p2[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&p2[z][l]==-1) floodfill(z*40+1+560,l*40+1,COLOR(255,255,255));
-                        }
-            }
-                
-                
+            opisCircle(p2,temp2x,tempy,1);
             setfillstyle(1,COLOR(200,0,0));
             floodfill(mousex(),mousey(),COLOR(255,255,255));
             p2[temp2x][tempy]=-p2[temp2x][tempy];
             numhit1++;
-            
             continue;
             }
             if (p2[temp2x][tempy]==0){ 
@@ -1267,187 +1195,17 @@ if (turn==1){
         }
     }
     
-    
+    printf("%i:%i = %i\n",temp2x,tempy,p2[temp2x][tempy]);
     //*************************************************ХОДИТ ВТОРОЙ ИГРОК!****************************************************
     if (bot==0&&turn==2){
         
         if (ismouseclick(WM_LBUTTONDOWN)&&mousex()%40!=0&&mousey()%40!=0&&mousex()>40&&mousex()<440&&mousey()>40&&mousey()<440){
             if (p1[tempx][tempy]>1) {
-                        
-                if((p1[tempx][tempy])/10==1) { //******************описывать кружок для 1 палубника
-                    setfillstyle(1,COLOR(200,200,200));
-                    for (int z=tempx-1;z<tempx+2;z++)
-                        for (int l=tempy-1;l<tempy+2;l++){
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]<1) {
-                        p1[z][l]=-1;
-                        delay(2);
-                       if (p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-                    }
-                    }
-                if((p1[tempx][tempy])/10==2) { //****************описывать кружок для 2 палубника
-                    setfillstyle(1,COLOR(200,200,200));
-                    if (p1[tempx-1][tempy]==-p1[tempx][tempy]) 
-                    for (int z=tempx-2;z<tempx+2;z++) 
-                        for (int l=tempy-1;l<tempy+2;l++){ 
-                        if (p1[z][l]==0)p1[z][l]=-1; 
-                        delay(2); 
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1)floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    }
-                    if(p1[tempx+1][tempy]==-p1[tempx][tempy]){ 
-                        for (int z=tempx-1;z<tempx+3;z++)
-                            for (int l=tempy-1;l<tempy+2;l++){
-                                if (p1[z][l]==0)p1[z][l]=-1;
-                                delay(2);
-                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                                }
-                    }
-                    if(p1[tempx][tempy-1]==-p1[tempx][tempy])
-                        for(int z=tempx-1;z<tempx+2;z++)
-                            for(int l=tempy-2;l<tempy+2;l++){
-                                if (p1[z][l]==0)p1[z][l]=-1;
-                                delay(2);
-                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                                }
-                    if(p1[tempx][tempy+1]==-p1[tempx][tempy])
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-1;l<tempy+3;l++){
-                         if (p1[z][l]==0)p1[z][l]=-1;
-                                delay(2);
-                                if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-                   
-            }
-            if(p1[tempx][tempy]/10==3){ //************************Описывать кружок для 3 палубника    
-            setfillstyle(1,COLOR(200,200,200));
-            
-                if (p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]){
-                for (int z=tempx-2;z<tempx+3;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&l>0&&l<11&&z<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy]){
-                for (int z=tempx-1;z<tempx+4;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy]){
-                 
-                    for (int z=tempx-3;z<tempx+2;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                   
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy]){
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-2;l<tempy+3;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-    }    
-                        if(p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+2]==-p1[tempx][tempy]){        
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-1;l<tempy+4;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-            }    
-                                    if(p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]){        
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-3;l<tempy+2;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-            } 
-            
-            
-        }
-        
-        if (p1[tempx][tempy]/10==4){ //Обруч вокруг 4-хпалубника
-            setfillstyle(1,COLOR(200,200,200));
-            if (p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
-             for (int z=tempx-3;z<tempx+3;z++)
-                for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    }
-           if (p1[tempx-3][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
-                for (int z=tempx-4;z<tempx+2;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-                        
-            if (p1[tempx+2][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy])
-                 for (int z=tempx-2;z<tempx+4;z++)
-                for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    }
-           if (p1[tempx+3][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+5;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }  
-                        //ВЕРТИКАЛЬНЫЕ ЧЕТЫРЁХПАЛУБНИКИ
-               if (p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]&&p1[tempx][tempy-3]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-4;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        
-                        }
-               if (p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-3;l<tempy+3;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        
-                        }
-               if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-2;l<tempy+4;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-              if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+3]==-p1[tempx][tempy])
-                  for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-1;l<tempy+5;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        delay(2);
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-            }
-                
-                
+             opisCircle(p1,tempx,tempy,0);
             setfillstyle(1,COLOR(200,0,0));
             floodfill(mousex(),mousey(),COLOR(255,255,255));
             p1[tempx][tempy]=-p1[tempx][tempy];
             numhit2++;
-            
             continue;
             }
             if (p1[tempx][tempy]==0){ 
@@ -1468,16 +1226,12 @@ if (turn==1){
     
     
 //*****************************************************************ХОДИТ БОТ********************************************************************************
-
-
             if (bot==1&&turn==2){ 
-            
           delay(200);
            notworking:
           shootx=rand()%10+1;
           shooty=rand()%10+1;
             if (p1[shootx][shooty]<0) goto notworking;
-            
 temp=rand()%100;
 if (temp>70){
     for (int z=0;z<12;z++)
@@ -1486,235 +1240,13 @@ if (temp>70){
         flag=1;
     }
     if (flag){ shootx=fixedx; shooty=fixedy;}
-    flag=0;
-
-  
-regen:
-   /* 
-    temp2y=rand()%4+1;
-    if (flag==2){
-         if (temp2y==1&&fixedx-1>0){ shootx=fixedx-1;shooty=fixedy;    }
-         if (temp2y==2&&fixedx+1<11){ shootx=fixedx+1;shooty=fixedy;    }
-         if (temp2y==3&&fixedy-1>0){ shootx=fixedx;shooty=fixedy-1;    }
-         if (temp2y==4&&fixedy+1<11){ shootx=fixedx;shooty=fixedy+1;    }
-         if (p1[fixedx+1][fixedy]<0&&p1[fixedx-1][fixedy]<0&&p1[fixedx][fixedy+1]<0&&p1[fixedx][fixedy-1]<0){flag=0; shootx=rand()%10+1;shooty=rand()%10+1;}   
-    }
-    
-    if (flag==3){
-        if (p1[tfx+1][tfy]==-p1[tfx][tfy]&&p1[tfx-1][tfy]==-p1[tfx][tfy])
-        
-        if (tflag==0){
-                 if (temp2y==1&&fixedx-1>0){ shootx=fixedx-1;shooty=fixedy;    }
-         if (temp2y==2&&fixedx+1<11){ shootx=fixedx+1;shooty=fixedy;    }
-         if (temp2y==3&&fixedy-1>0){ shootx=fixedx;shooty=fixedy-1;    }
-         if (temp2y==4&&fixedy+1<11){ shootx=fixedx;shooty=fixedy+1;    }
-        }
-        if (tflag==1&&dir==1){
-         if (temp2y==1&&fixedx-1>0){ shootx=tfx-1;shooty=tfy;    }
-         if (temp2y==2&&fixedx+1<11){ shootx=tfx+1;shooty=tfy;    }
-         if (temp2y==3&&fixedx-2>0){ shootx=tfx-2;shooty=tfy;    }
-         if (temp2y==4&&fixedx+2<11){ shootx=tfx+2;shooty=tfy;    }
-            }    
-                
-        if (tflag==1&&dir==2){
-         if (temp2y==1&&fixedy-1>0){ shootx=tfx;shooty=tfy+1;    }
-         if (temp2y==2&&fixedy+1<11){ shootx=tfx;shooty=tfy-1;    }
-         if (temp2y==3&&fixedy-2>0){ shootx=tfx;shooty=tfy+2;    }
-         if (temp2y==4&&fixedy+2<11){ shootx=tfx;shooty=tfy-2;    }
-            
-            }
-        if (tflag==2){ tflag=0; flag=0;}
-   if (p1[shootx][shooty]>0){ 
-    tflag++;
-    }
-    if (p1[fixedx-1][fixedy]==-p1[fixedx][fixedy]||p1[fixedx+1][shooty]==-p1[fixedx][fixedy]) dir=1;
-    if (p1[fixedx][fixedy-1]==-p1[fixedx][fixedy]||p1[fixedy][fixedy+1]==-p1[fixedy][fixedy]) dir=2;
-    
-   //dir==1 - gorizont; dir==2 - vertikal
-        }               
-   
-   */
-
-   
-   
+    flag=0;     
     if (p1[shootx][shooty]<0) goto notworking;
-    
     skip:
             tempx=shootx;
             tempy=shooty;
             if (p1[shootx][shooty]!=-1&&p1[shootx][shooty]>1) {
-                
-                if((p1[tempx][tempy])/10==1) { //******************обруч вокруг однопалубника
-                    setfillstyle(1,COLOR(200,200,200));
-                    for (int z=tempx-1;z<tempx+2;z++)
-                        for (int l=tempy-1;l<tempy+2;l++){
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]<1) {
-                        p1[z][l]=-1;
-                    
-                       if (p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-                    }
-                    }
-                if((p1[tempx][tempy])/10==2) { //****************обруч вокруг 2-х палубника
-                    setfillstyle(1,COLOR(200,200,200));
-                                  
-                        if (p1[tempx][tempy]==-p1[tempx+1][tempy]){
-                            for (int z=tempx-1;z<tempx+3;z++)
-                                for (int l=tempy-1;l<tempy+2;l++){
-                                if (p1[z][l]==0) p1[z][l]=-1;
-                                if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                                }
-                            }
-                            
-                            if (p1[tempx][tempy]==-p1[tempx-1][tempy]){
-                                for (int z=tempx-2;z<tempx+2;z++)
-                                    for(int l=tempy-1;l<tempy+2;l++){
-                                    if (p1[z][l]==0) p1[z][l]=-1;
-                                    if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));    
-                                        
-                                    }
-                                }
-                            if (p1[tempx][tempy]==-p1[tempx][tempy+1]){
-                                for (int z=tempx-1;z<tempx+2;z++)
-                                    for(int l=tempy-1;l<tempy+3;l++){
-                                    if (p1[z][l]==0) p1[z][l]=-1;
-                                    if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));    
-                                        
-                                    }
-                                }
-                            if (p1[tempx][tempy]==-p1[tempx][tempy-1]){
-                                for (int z=tempx-1;z<tempx+2;z++)
-                                    for(int l=tempy-2;l<tempy+2;l++){
-                                    if (p1[z][l]==0) p1[z][l]=-1;
-                                    if (p1[z][l]==-1&&z<11&&z>0&&l<11&&l>0)floodfill(z*40+1,l*40+1,COLOR(255,255,255));    
-                                        
-                                    }
-                                }
-                   
-            }
-            if(p1[tempx][tempy]/10==3){ //************************мимо вокруг 3-х палубника  
-            setfillstyle(1,COLOR(200,200,200));
-            
-                if (p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]){
-                for (int z=tempx-2;z<tempx+3;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                      
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy]){
-                for (int z=tempx-1;z<tempx+4;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy]){
-                 
-                    for (int z=tempx-3;z<tempx+2;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                   
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    
-                    }
-        }
-                        if (p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy]){
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-2;l<tempy+3;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-    }    
-                        if(p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+2]==-p1[tempx][tempy]){        
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-1;l<tempy+4;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                        
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-            }    
-                                    if(p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]){        
-                        for (int z=tempx-1;z<tempx+2;z++)
-                            for (int l=tempy-3;l<tempy+2;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                       
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                }
-            } 
-            
-            
-        }
-        
-        if (p1[tempx][tempy]/10==4){ //кружок вокруг 4-х палубника
-            setfillstyle(1,COLOR(200,200,200));
-            if (p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
-             for (int z=tempx-3;z<tempx+3;z++)
-                for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                       
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    }
-           if (p1[tempx-3][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy]&&p1[tempx-2][tempy]==-p1[tempx][tempy])
-                for (int z=tempx-4;z<tempx+2;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                      
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-                        
-            if (p1[tempx+2][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx-1][tempy]==-p1[tempx][tempy])
-                 for (int z=tempx-2;z<tempx+4;z++)
-                for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                     
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                    }
-           if (p1[tempx+3][tempy]==-p1[tempx][tempy]&&p1[tempx+1][tempy]==-p1[tempx][tempy]&&p1[tempx+2][tempy]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+5;z++)
-                    for (int l=tempy-1;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                      
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }  
-                        //Ещё один круг вокрг 4-х палубника
-               if (p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy]&&p1[tempx][tempy-3]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-4;l<tempy+2;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                      
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        
-                        }
-               if (p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy]&&p1[tempx][tempy-2]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-3;l<tempy+3;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                     
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        
-                        }
-               if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy-1]==-p1[tempx][tempy])
-                for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-2;l<tempy+4;l++){
-                     if (p1[z][l]==0)p1[z][l]=-1;
-                    
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-              if (p1[tempx][tempy+2]==-p1[tempx][tempy]&&p1[tempx][tempy+1]==-p1[tempx][tempy]&&p1[tempx][tempy+3]==-p1[tempx][tempy])
-                  for (int z=tempx-1;z<tempx+2;z++)
-                    for (int l=tempy-1;l<tempy+5;l++){
-                        if (p1[z][l]==0)p1[z][l]=-1;
-                    
-                        if (z>0&&z<11&&l>0&&l<11&&p1[z][l]==-1) floodfill(z*40+1,l*40+1,COLOR(255,255,255));
-                        }
-            }
+                opisCircle(p1,tempx,tempy);
             setfillstyle(1,COLOR(200,0,0));
             fixedx=shootx;
             fixedy=shooty;
@@ -1724,15 +1256,10 @@ regen:
                 tfx=shootx;
                 tfy=shooty;
                 }
-                
             floodfill(shootx*40+5,shooty*40+5,COLOR(255,255,255));    
             if (p1[shootx][shooty]/10>1){ flag=p1[shootx][shooty]/10; }
-            
             p1[shootx][shooty]=-p1[shootx][shooty];
         }
-        
-            
-            
             if (p1[shootx][shooty]==0){
             turnprint();
             setfillstyle(1,COLOR(200,200,200));
@@ -1766,7 +1293,6 @@ cleardevice();
         }
     }
 }
-
 delay(5000);
 closegraph();
 end:
